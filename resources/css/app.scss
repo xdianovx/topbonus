@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*,
+*::before,
+*::after {
+    outline: none;
+}
+
+@layer base {
+    .h1 {
+        @apply text-[32px] font-bold leading-[120%];
+    }
+
+    .h2 {
+        @apply text-[28px] font-bold leading-[120%];
+    }
+
+    input {
+        @apply bg-white px-6 pt-[14px] pb-[15px] inline-block text-black rounded-[8px];
+    }
+
+    button {
+        @apply bg-white px-6 pt-[14px] pb-[15px] inline-block text-black text-center rounded-[8px] transition-colors duration-200 ease-out hover:opacity-90;
+    }
+    .btn {
+        @apply bg-white px-6 pt-[14px] pb-[15px] inline-block text-black text-center rounded-[8px] transition-colors duration-200 ease-out hover:opacity-90;
+        &.sm {
+            @apply pt-[11px] pb-[12px];
+        }
+    }
+
+    .link__inline {
+        @apply text-accent transition-colors duration-200 ease-in-out hover:text-red-800;
+    }
+
+    .header__link {
+        @apply transition-colors duration-200 ease-out uppercase hover:text-accent;
+
+        &.active {
+            @apply text-accent;
+        }
+    }
+}
