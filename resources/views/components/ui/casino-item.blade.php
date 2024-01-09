@@ -7,9 +7,9 @@
             {{ $data->title }}
         </h2>
         <div class="flex flex-wrap ml-auto gap-2 max-w-[620px]">
-            @foreach ($data->bonus as $item)
+            {{-- @foreach ($data->bonus as $item)
                 <x-ui.tag :text="$item->title" />
-            @endforeach
+            @endforeach --}}
 
         </div>
 

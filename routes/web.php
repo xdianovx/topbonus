@@ -35,11 +35,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomePage::class, 'index'])->name('index');
 
-// Route::name('casinos.')->prefix('casinos')->group(function () {
-//     Route::get('/', function () {
-//         return view('pages.casinos.index');
-//     })->name('index');
-// });
+Route::name('casinos.')->prefix('casinos')->group(function () {
+    Route::get('/', function () {
+        return view('pages.casinos.index');
+    })->name('index');
+});
 
 
 Route::middleware('auth:sanctum')->name('admin.')->prefix('admin')->group(function () {
