@@ -10,7 +10,7 @@ class HomePage extends Controller
 {
     public function index(Request $request)
     {
-        $casinos = Casino::all();
+        $casinos = Casino::paginate(5);
 
         $query = $request->get('query');
         if ($request->ajax()) {

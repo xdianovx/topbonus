@@ -15,9 +15,6 @@
                             <div class="p-5 inner border border-gray overflow-y-scroll max-h-[200px]"></div>
                         </div>
                     </div>
-
-
-
                 </div>
             </div>
         </div>

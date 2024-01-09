@@ -5,7 +5,7 @@
             <h2 class="font-bold text-xl leading-none">24Casino.bet</h2>
             <div class="flex gap-2 mt-1">
                 <div>Flag</div>
-                <div>Rating</div>
+                <x-ui.rating rating=5 />
             </div>
         </div>
         <div class="flex flex-wrap ml-auto gap-2 max-w-[620px]">
