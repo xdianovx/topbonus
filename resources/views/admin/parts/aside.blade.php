@@ -39,25 +39,25 @@
                     </div>
                 </li>
 
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link menu-link" href="{{ route('admin.casino.index') }}" aria-expanded="false"
                         aria-controls="sidebarLayouts">
                         <i data-feather="activity"></i> <span data-key="t-layouts">Casinos</span>
                     </a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{ route('admin.bonus.index') }}" aria-expanded="false"
+                    <a class="nav-link menu-link" href="{{ route('admin.bonus_cards.index') }}" aria-expanded="false"
                         aria-controls="sidebarLayouts">
                         <i class="las la-columns"></i> <span data-key="t-layouts">Bonuses</span>
                     </a>
                 </li>
-
+{{-- 
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="{{ route('admin.bonus_code.index') }}" aria-expanded="false"
                         aria-controls="sidebarLayouts">
                         <i class="las la-columns"></i> <span data-key="t-layouts">Bonus Codes</span>
                     </a>
-                </li>
+                </li> --}}
 
 
 

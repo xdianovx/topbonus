@@ -15,7 +15,9 @@
     <link href="{{ asset('assets/admin/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/admin/css/app.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/admin/css/custom.min.css') }}" rel="stylesheet" type="text/css" />
-
+    <link href="{{ URL::asset('assets/admin/libs/quill/quill.core.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ URL::asset('assets/admin/libs/quill/quill.bubble.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ URL::asset('assets/admin/libs/quill/quill.snow.css') }}" rel="stylesheet" type="text/css" />
 
 </head>
 
@@ -74,7 +76,16 @@
     <script src="{{ asset('assets/admin/js/plugins.js') }}"></script>
 
     <!-- App js -->
-    <script src="{{ asset('assets/admin/js/app.js') }}"></script>
+        <!-- particles js -->
+        <script src="{{ asset('assets/admin/libs/particles.js/particles.js') }}"></script>
+        <!-- particles app js -->
+        <script src="{{ asset('assets/admin/js/pages/particles.app.js') }}"></script>
+        <!-- password-addon init -->
+        <script src="{{ asset('assets/admin/js/pages/password-addon.init.js') }}"></script>
+        <script src="{{ URL::asset('assets/admin/libs/@ckeditor/ckeditor5-build-classic/build/ckeditor.js') }}"></script>
+        <script src="{{ URL::asset('assets/admin/libs/quill/quill.min.js') }}"></script>
+        <script src="{{ URL::asset('assets/admin/js/pages/form-editor.init.js') }}"></script>
+        <script src="{{ URL::asset('assets/admin/js/app.js') }}"></script>
 </body>
 
 </html>
