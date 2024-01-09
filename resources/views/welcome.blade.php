@@ -77,9 +77,9 @@
                 <a href="#" class="link__inline"> Online Casinos page</a>.
             </p>
             <div class="mt-8 gap-4 flex flex-col rounded-lg">
-                <x-ui.new-casino-item />
-                <x-ui.new-casino-item />
-                <x-ui.new-casino-item />
+                <x-ui.new-casino-item rating=5 />
+                <x-ui.new-casino-item rating=2 />
+                <x-ui.new-casino-item rating=3 />
                 <x-ui.new-casino-item />
                 <x-ui.new-casino-item />
             </div>
