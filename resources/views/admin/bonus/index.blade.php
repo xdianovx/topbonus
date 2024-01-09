@@ -28,7 +28,7 @@
                                 <div class="list-grid-nav hstack gap-1">
 
 
-                                    <a href="{{ route('admin.bonus.create') }}" class="btn btn-success addMembers-modal">
+                                    <a href="{{ route('admin.bonus_cards.create') }}" class="btn btn-success addMembers-modal">
                                         <i class="ri-add-fill me-1 align-bottom"></i>
                                         Add Casino
                                     </a>
@@ -39,7 +39,7 @@
                 </div>
 
 
-                @foreach ($bonuses as $item)
+                @foreach ($bonus_cards as $item)
                     <p>{{ $item->title }}</p>
                 @endforeach
             </div>

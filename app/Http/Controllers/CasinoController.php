@@ -14,6 +14,7 @@ class CasinoController extends Controller
     public function index()
     {
         $casinos = Casino::all();
+    
         return view('admin.casino.index', compact('casinos'));
     }
 
