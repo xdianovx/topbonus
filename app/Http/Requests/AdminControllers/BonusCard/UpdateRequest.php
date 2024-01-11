@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\AdminApi\BonusCard;
+namespace App\Http\Requests\AdminControllers\BonusCard;
 
 use Illuminate\Foundation\Http\FormRequest;
 

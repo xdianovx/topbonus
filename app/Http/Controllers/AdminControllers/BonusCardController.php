@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminControllers\BonusCard\StoreRequest;
 use App\Http\Requests\AdminControllers\BonusCard\UpdateRequest;
 use App\Models\BonusCard;
+use App\Models\BonusType;
 use App\Models\Casino;
+use App\Models\Country;
+use App\Models\Game;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,14 +30,17 @@ class BonusCardController extends Controller
     public function create()
     {
         $casinos = Casino::all();
+        $countries = Country::all();
+        $bonus_types = BonusType::all();
+        $games = Game::all();
         $user = Auth::user();
-        return view('admin.bonus.create', compact('user','casinos'));
+        return view('admin.bonus.create', compact('user','casinos','countries','bonus_types','games'));
     }
     public function store(StoreRequest $request)
     {
         $data = $request->validated();
         $bonus_card = BonusCard::firstOrCreate($data);
-        return response()->json($bonus_card);
+        return view('admin.bonus.index', compact('bonus_card'))->with('status', 'bonus-created');
     }
 
     public function update(UpdateRequest $request, BonusCard $bonus_card)

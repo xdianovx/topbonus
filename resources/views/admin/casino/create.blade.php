@@ -22,27 +22,62 @@
 
                             <div class="card-body">
                                 <div class="live-preview">
-                                    <form action="{{ route('admin.casino.store') }}" method="POST"
+                                    <form action="{{ route('admin.casinos.store') }}" method="POST"
                                         enctype="multipart/form-data">
                                         @csrf
                                         <div class="row gy-4">
                                             <div class="col-xxl-6 col-md-6">
                                                 <div>
-                                                    <label for="valueInput" class="form-label">Название</label>
+                                                    <label for="valueInput" class="form-label">Title *</label>
                                                     <input type="text" class="form-control" id="valueInput"
                                                         name="title" placeholder="">
                                                 </div>
                                             </div>
-
                                             <div class="col-xxl-6 col-md-6">
                                                 <div>
-                                                    <label for="valueInput" class="form-label">Логотип</label>
+                                                    <label for="valueInput" class="form-label">Slug *</label>
+                                                    <input type="text" class="form-control" id="valueInput"
+                                                        name="slug">
+                                                </div>
+                                            </div>
+                                            <div class="col-xxl-6 col-md-6">
+                                                <div>
+                                                    <label for="valueInput" class="form-label">Link *</label>
+                                                    <input type="text" class="form-control" id="valueInput"
+                                                        name="link">
+                                                </div>
+                                            </div>
+                                            <div class="col-xxl-6 col-md-6">
+                                                <label for="valueInput" class="form-label">Category *</label>
+                                                <select type="text" class="form-control" name="category_id" id="valueInput">
+                                                    @foreach ($categories as $item)
+                                                        <option value="{{ $item->id }}">{{ $item->title }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-xxl-6 col-md-6">
+                                                <div>
+                                                    <label for="valueInput" class="form-label">Logo</label>
                                                     <input type="file" class="form-control" id="valueInput"
                                                         name="logo" placeholder="">
                                                 </div>
                                             </div>
-
-                                            <button type="submit">Добавить</button>
+                                            <div class="row mt-2">
+                                                <div class="col-lg-12">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <p class="text-muted">Description</p>
+                                                            <div class="snow-editor" style="height: 300px;">
+                                                                <input type="textarea" class="form-control" id="valueInput"
+                                                                    name="description" placeholder="Enter text">
+                                                            </div> <!-- end Snow-editor-->
+                                                        </div><!-- end card-body -->
+                                                    </div><!-- end card -->
+    
+                                                </div>
+                                                <!-- end col -->
+                                            </div>
+                                            <button type="submit">Create</button>
                                     </form>
 
                                 </div>

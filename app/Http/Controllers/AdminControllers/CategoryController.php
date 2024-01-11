@@ -7,45 +7,82 @@ use App\Http\Requests\AdminControllers\Category\StoreRequest;
 use App\Http\Requests\AdminControllers\Category\UpdateRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
     public function index()
     {
-    
+        $user = Auth::user();
         $categories = Category::orderBy('id', 'DESC')->paginate(10);
-        return response()->json($categories);
+        return view('admin.category.index', compact('categories','user'));
     }
 
-    public function show(Category $category)
+    public function show($category_slug)
     {
-            return response()->json($category);
+        $user = Auth::user();
+        $category = Category::whereId($category_slug)->firstOrFail();
+        return view('admin.category.show', compact('category','user'));
     }
 
+    public function create()
+    {
+        $user = Auth::user();
+        return view('admin.category.create', compact('user'));
+    }
     public function store(StoreRequest $request)
     {
         $data = $request->validated();
-        $category = Category::firstOrCreate($data);
-        return response()->json($category);
+          // Если есть файл
+          if ($request->hasFile('image')) {
+            // Имя и расширение файла
+            $filenameWithExt = $request->file('image')->getClientOriginalName();
+            // Только оригинальное имя файла
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $filename = str_replace(' ', '_', $filename);
+            // Расширение
+            $extention = $request->file('image')->getClientOriginalExtension();
+            // Путь для сохранения
+            $fileNameToStore = "image/" . $filename . "_" . time() . "." . $extention;
+            // Сохраняем файл
+            $data['image'] = $request->file('image')->storeAs('public', $fileNameToStore);
+        }
+        Category::firstOrCreate($data);
+        return redirect()->route('admin.categories.index')->with('status', 'category-created');
     }
-
-    public function update(UpdateRequest $request, Category $category)
+    public function edit($category_slug)
     {
+        $user = Auth::user();
+        $category = Category::whereSlug($category_slug)->firstOrFail();
+        return view('admin.category.edit', compact('user','category'));
+    }
+    public function update(UpdateRequest $request, $category_slug)
+    {
+        $category = Category::whereSlug($category_slug)->firstOrFail();
         $data = $request->validated();
-            $category->update($data);
-            return response()->json([
-                'message' => 'category updated',
-                'data' => $category
-            ], 200);
+        if ($request->hasFile('image')) {
+            // Имя и расширение файла
+            $filenameWithExt = $request->file('image')->getClientOriginalName();
+            // Только оригинальное имя файла
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $filename = str_replace(' ', '_', $filename);
+            // Расширение
+            $extention = $request->file('image')->getClientOriginalExtension();
+            // Путь для сохранения
+            $fileNameToStore = "image/" . $filename . "_" . time() . "." . $extention;
+            // Сохраняем файл
+            $data['image'] = $request->file('image')->storeAs('public', $fileNameToStore);
+        }
+        $category->update($data);
+        return redirect()->route('admin.categories.index')->with('status', 'category-updated');
     }
     
-    public function destroy(Category $category)
+    public function destroy($category_slug)
     {
-            $category->delete();
-            return response()->json([
-                'message' => 'category deleted',
-            ], 200);
-       
+
+        $category = Category::whereSlug($category_slug)->firstOrFail();
+        $category->delete();
+        return redirect()->back()->with('status', 'category-deleted');
     }
 
     public function search(Request $request)

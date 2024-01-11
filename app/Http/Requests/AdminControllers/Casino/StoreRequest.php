@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\AdminApi\Casino;
+namespace App\Http\Requests\AdminControllers\Casino;
 
 use Illuminate\Foundation\Http\FormRequest;
 

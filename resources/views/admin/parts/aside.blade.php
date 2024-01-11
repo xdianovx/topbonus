@@ -39,16 +39,40 @@
                     </div>
                 </li>
 
-                {{-- <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{ route('admin.casino.index') }}" aria-expanded="false"
+                <li class="nav-item">
+                    <a class="nav-link menu-link @if (in_array(Route::current()->getName(), [
+                        'admin.casinos.index',
+                        'admin.casinos.search',
+                        'admin.casinos.show',
+                        'admin.casinos.edit',
+                        'admin.casinos.create'
+                    ])) active @endif" href="{{ route('admin.casinos.index') }}" aria-expanded="false"
                         aria-controls="sidebarLayouts">
                         <i data-feather="activity"></i> <span data-key="t-layouts">Casinos</span>
                     </a>
-                </li> --}}
+                </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{ route('admin.bonus_cards.index') }}" aria-expanded="false"
+                    <a class="nav-link menu-link  @if (in_array(Route::current()->getName(), [
+                         'admin.bonus_cards.index',
+                        'admin.bonus_cards.search',
+                        'admin.bonus_cards.show',
+                        'admin.bonus_cards.edit',
+                        'admin.bonus_cards.create'
+                    ])) active @endif" href="{{ route('admin.bonus_cards.index') }}" aria-expanded="false"
                         aria-controls="sidebarLayouts">
                         <i class="las la-columns"></i> <span data-key="t-layouts">Bonuses</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link  @if (in_array(Route::current()->getName(), [
+                        'admin.categories.index',
+                        'admin.categories.search',
+                        'admin.categories.show',
+                        'admin.categories.edit',
+                        'admin.categories.create'
+                    ])) active @endif" href="{{ route('admin.categories.index') }}" aria-expanded="false"
+                        aria-controls="sidebarLayouts">
+                        <i class="las la-columns"></i> <span data-key="t-layouts">Categories</span>
                     </a>
                 </li>
 {{-- 

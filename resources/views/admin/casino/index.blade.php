@@ -28,7 +28,7 @@
                                 <div class="list-grid-nav hstack gap-1">
 
 
-                                    <a href="{{ route('admin.casino.create') }}" class="btn btn-primary addMembers-modal">
+                                    <a href="{{ route('admin.casinos.create') }}" class="btn btn-primary addMembers-modal">
                                         <i class="ri-add-fill me-1 align-bottom"></i>
                                         Add Casino
                                     </a>
@@ -77,29 +77,7 @@
 
 
                                 </table>
-                                <ul class="pagination pagination-separated mt-3 px-2">
-                                    <li class="page-item disabled">
-                                        <a href="#" class="page-link">←</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a href="#" class="page-link">1</a>
-                                    </li>
-                                    <li class="page-item active">
-                                        <a href="#" class="page-link">2</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a href="#" class="page-link">3</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a href="#" class="page-link">4</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a href="#" class="page-link">5</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a href="#" class="page-link">→</a>
-                                    </li>
-                                </ul>
+          
                             </div>
 
                         </div>

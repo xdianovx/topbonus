@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\AdminApi\Category;
+namespace App\Http\Requests\AdminControllers\Category;
 
 use Illuminate\Foundation\Http\FormRequest;
 

@@ -21,9 +21,9 @@ return new class extends Migration
             $table->string('wagering')->nullable();
             $table->string('refferal_link')->nullable();
             $table->date('expired_date')->nullable();
-            $table->integer('like');
-            $table->integer('dislike');
-            $table->integer('used_link');
+            $table->integer('like')->default(0);
+            $table->integer('dislike')->default(0);
+            $table->integer('used_link')->default(0);
 
             $table->foreignId('country_id');
             $table->foreignId('casino_id');
