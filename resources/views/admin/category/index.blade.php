@@ -4,26 +4,61 @@
     <div class="main-content">
         <div class="page-content">
             <div class="container-fluid">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row g-2">
+                            <div class="col-sm-4">
+                                <div class="search-box">
+                                    <form class="d-flex" action="{{ route('admin.categories.search') }}" method="get">
+                                        @csrf
+                                        <input class="form-control me-2" type="search" name="search" placeholder="Поиск"
+                                            aria-label="Search">
+                                        <button class="btn btn-outline-primary" type="submit">Поиск</button>
+                                    </form>
+                                    {{-- <input type="text" class="form-control" id="searchMemberList"
+                                        placeholder="Search casino">
+                                    <i class="ri-search-line search-icon"></i> --}}
+                                </div>
+                            </div>
 
+                            <div class="col-sm-auto ms-auto">
+                                <div class="list-grid-nav hstack gap-1">
+
+
+
+                                    <a href="{{ route('admin.categories.create') }}"
+                                        class="btn btn-success addMembers-modal">
+                                        <i class="ri-add-fill me-1 align-bottom"></i>
+                                        Add Category
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="demo-inline-spacing">
-                                @if (session('status') === 'category-updated')
-                                    <div class="alert alert-primary" role="alert">{{ __('Updated successfully.') }}
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                @if (session('status') === 'item-updated')
+                                    <div class="alert alert-primary alert-dismissible" role="alert">
+                                        {{ __('Updated successfully.') }}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
                                     </div>
                                 @endif
-                                @if (session('status') === 'category-created')
+                                @if (session('status') === 'item-created')
                                     <div class="alert alert-success alert-dismissible" role="alert">
                                         {{ __('Created successfully.') }}
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
                                     </div>
                                 @endif
-                                @if (session('status') === 'category-deleted')
+                                @if (session('status') === 'item-deleted')
                                     <div class="alert alert-danger alert-dismissible" role="alert">
                                         {{ __('Deleted successfully.') }}
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
                                     </div>
                                 @endif
                             </div>
@@ -41,89 +76,105 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @forelse ($categories as $category)
+                                                @forelse ($categories as $item)
                                                     <tr>
-                                                        <td>{{ $category->id }}</td>
+                                                        <td>{{ $item->id }}</td>
                                                         <td>
-                                                                @if (!empty($category->image))
+                                                            @if (!empty($item->image))
                                                                 <div class="input-group">
-                                                                    <img src="{{ Storage::url($category->image) }}" class="rounded avatar-sm">
+                                                                    <img src="{{ Storage::url($item->image) }}"
+                                                                        class="rounded avatar-sm">
                                                                 </div>
                                                             @else
                                                             @endif
                                                         </td>
-                                                        <td><a href="#">{{ $category->title }}</a></td>
-                                                        <td>{{ $category->updated_at->diffForHumans() }}</td>
+                                                        <td><a
+                                                                href="{{ route('admin.categories.show', $item->slug) }}">{{ $item->title }}</a>
+                                                        </td>
+                                                        <td>{{ $item->updated_at->diffForHumans() }}</td>
                                                         <td>
-                                                            
+
                                                             <div class="dropdown d-inline-block">
-                                                                <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <button class="btn btn-soft-secondary btn-sm dropdown"
+                                                                    type="button" data-bs-toggle="dropdown"
+                                                                    aria-expanded="false">
                                                                     <i class="ri-more-fill align-middle"></i>
                                                                 </button>
                                                                 <ul class="dropdown-menu dropdown-menu-end" style="">
-                                                                    <li><a href="{{ route('admin.categories.show', $category->slug) }}" class="dropdown-item"><i class="ri-eye-fill align-bottom me-2 text-muted"></i> View</a></li>
-                                                                    <li><a href="{{ route('admin.categories.edit', $category->slug) }}" class="dropdown-item edit-item-btn"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a></li>
+                                                                    <li><a href="{{ route('admin.categories.show', $item->slug) }}"
+                                                                            class="dropdown-item"><i
+                                                                                class="ri-eye-fill align-bottom me-2 text-muted"></i>
+                                                                            View</a></li>
+                                                                    <li><a href="{{ route('admin.categories.edit', $item->slug) }}"
+                                                                            class="dropdown-item edit-item-btn"><i
+                                                                                class="ri-pencil-fill align-bottom me-2 text-muted"></i>
+                                                                            Edit</a></li>
                                                                     <li>
-                                                                        <button type="submit" class="dropdown-item text-danger"
-                                                                        data-bs-toggle="modal"
-                                                                        data-bs-target="#modalScrollable{{ $category->slug }}"><i
-                                                                            class="bx bx-trash me-1 text-danger" role="button"></i>
-                                                                        Delete</button>
+                                                                        <button type="submit"
+                                                                            class="dropdown-item text-danger"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#modalScrollable{{ $item->slug }}"><i
+                                                                                class="bx bx-trash me-1 text-danger"
+                                                                                role="button"></i>
+                                                                            Delete</button>
                                                                     </li>
                                                                 </ul>
                                                             </div>
                                                         </td>
                                                     </tr>
-                                                    <div class="modal fade" id="modalScrollable{{ $category->slug }}" tabindex="-1"
-                                                        style="display: none;" aria-hidden="true">
+                                                    <div class="modal fade" id="modalScrollable{{ $item->slug }}"
+                                                        tabindex="-1" style="display: none;" aria-hidden="true">
                                                         <div class="modal-dialog modal-dialog-scrollable" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title" id="modalScrollableTitle">Вы уверены, что хотите
-                                                                        удалить?</h5>
-                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                        aria-label="Close"></button>
+                                                                    <h5 class="modal-title" id="modalScrollableTitle">Are
+                                                                        you sure you want
+                                                                        delete?</h5>
+                                                                    <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal" aria-label="Close"></button>
                                                                 </div>
                                                                 <div class="modal-body">
                                                                     <p
                                                                         class="mt-1 text-sm text-gray-600 dark:text-gray-400  alert alert-warning text-wrap">
-                                                                        {{ __('После удаления записи все ее ресурсы и данные будут безвозвратно удалены.') }}
+                                                                        {{ __('After deleting an entry, all its resources and data will be permanently deleted !!!') }}
                                                                     </p>
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-outline-secondary"
+                                                                    <button type="button"
+                                                                        class="btn btn-outline-secondary"
                                                                         data-bs-dismiss="modal">
-                                                                        Закрыть
+                                                                        Close
                                                                     </button>
-                                                                    <form action="{{ route('admin.categories.destroy', $category->slug) }}"
+                                                                    <form
+                                                                        action="{{ route('admin.categories.destroy', $item->slug) }}"
                                                                         method="POST">
                                                                         @csrf
                                                                         @method('DELETE')
-                                                                        <button type="submit" class="btn btn-danger" data-bs-toggle="modal"
-                                                                            data-bs-target="#modalScrollableConfirm">Подтвердить</button>
+                                                                        <button type="submit" class="btn btn-danger"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#modalScrollableConfirm">Confirm</button>
                                                                     </form>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    @empty
+                                                @empty
                                                     <tr>
-                                                        <td class="text-danger">Записи отсутстувют.</td>
+                                                        <td class="text-danger">There are no entries...</td>
                                                     </tr>
                                                 @endforelse
                                             </tbody>
                                         </table>
                                     </div>
+                                    @if ($categories->links()->paginator->hasPages())
+                                        {{ $categories->links() }}
+                                    @endif
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
-                <a href="{{ route('admin.categories.create') }}" class="btn btn-success addMembers-modal">
-                    <i class="ri-add-fill me-1 align-bottom"></i>
-                    Add Category
-                </a>
-
-            @endsection
+            </div>
+        </div>
+    </div>
+@endsection

@@ -30,18 +30,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-
-
-Route::get('/', [HomePage::class, 'index'])->name('index');
-
-Route::name('casinos.')->prefix('casinos')->group(function () {
-    Route::get('/', function () {
-        return view('pages.casinos.index');
-    })->name('index');
-});
-
-
 Route::middleware('auth:sanctum')->name('admin.')->prefix('admin')->group(function () {
 
     Route::get('/', [MainController::class, 'index'])->name('index');
@@ -55,15 +43,15 @@ Route::middleware('auth:sanctum')->name('admin.')->prefix('admin')->group(functi
         Route::patch('/{bonus_card_slug}/update', [BonusCardController::class, 'update'])->name('update');
         Route::delete('/{bonus_card_slug}', [BonusCardController::class, 'destroy'])->name('destroy'); 
     });
-    // Route::name('pages.')->prefix('pages')->group(function () {
-    //     Route::get('/', [PageController::class, 'index'])->name('index');
-    //     Route::get('/create', [PageController::class, 'create'])->name('create');
-    //     Route::post('/store', [PageController::class, 'store'])->name('store');
-    //     Route::get('/{page}', [PageController::class, 'show'])->name('show');
-    //     Route::get('/{page}/edit', [PageController::class, 'edit'])->name('edit');
-    //     Route::patch('/{page}', [PageController::class, 'show'])->name('show');
-    //     Route::delete('/{page}', [PageController::class, 'destroy'])->name('destroy');
-    // });
+    Route::name('pages.')->prefix('pages')->group(function () {
+        Route::get('/', [PageController::class, 'index'])->name('index');
+        Route::get('/create', [PageController::class, 'create'])->name('create');
+        Route::post('/store', [PageController::class, 'store'])->name('store');
+        Route::get('/{page_slug}', [PageController::class, 'show'])->name('show');
+        Route::get('/{page_slug}/edit', [PageController::class, 'edit'])->name('edit');
+        Route::patch('/{page_slug}', [PageController::class, 'update'])->name('update');
+        Route::delete('/{page_slug}', [PageController::class, 'destroy'])->name('destroy');
+    });
     Route::name('casinos.')->prefix('casinos')->group(function () {
         Route::get('/', [CasinoController::class, 'index'])->name('index');
         Route::get('/create', [CasinoController::class, 'create'])->name('create');
@@ -75,6 +63,7 @@ Route::middleware('auth:sanctum')->name('admin.')->prefix('admin')->group(functi
     });
     Route::name('categories.')->prefix('categories')->group(function () {
         Route::get('/', [CategoryController::class, 'index'])->name('index');
+        Route::get('/search',  [CategoryController::class, 'search'])->name('search');
         Route::get('/create', [CategoryController::class, 'create'])->name('create');
         Route::post('/store', [CategoryController::class, 'store'])->name('store');
         Route::get('/{category_slug}', [CategoryController::class, 'show'])->name('show');
@@ -131,4 +120,3 @@ Route::middleware('auth:sanctum')->name('admin.')->prefix('admin')->group(functi
 
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');

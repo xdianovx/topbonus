@@ -21,8 +21,8 @@ class CategoryController extends Controller
     public function show($category_slug)
     {
         $user = Auth::user();
-        $category = Category::whereId($category_slug)->firstOrFail();
-        return view('admin.category.show', compact('category','user'));
+        $item = Category::whereSlug($category_slug)->firstOrFail();
+        return view('admin.category.show', compact('item','user'));
     }
 
     public function create()
@@ -48,13 +48,13 @@ class CategoryController extends Controller
             $data['image'] = $request->file('image')->storeAs('public', $fileNameToStore);
         }
         Category::firstOrCreate($data);
-        return redirect()->route('admin.categories.index')->with('status', 'category-created');
+        return redirect()->route('admin.categories.index')->with('status', 'item-created');
     }
     public function edit($category_slug)
     {
         $user = Auth::user();
-        $category = Category::whereSlug($category_slug)->firstOrFail();
-        return view('admin.category.edit', compact('user','category'));
+        $item = Category::whereSlug($category_slug)->firstOrFail();
+        return view('admin.category.edit', compact('user','item'));
     }
     public function update(UpdateRequest $request, $category_slug)
     {
@@ -74,7 +74,7 @@ class CategoryController extends Controller
             $data['image'] = $request->file('image')->storeAs('public', $fileNameToStore);
         }
         $category->update($data);
-        return redirect()->route('admin.categories.index')->with('status', 'category-updated');
+        return redirect()->route('admin.categories.index')->with('status', 'item-updated');
     }
     
     public function destroy($category_slug)
@@ -82,18 +82,20 @@ class CategoryController extends Controller
 
         $category = Category::whereSlug($category_slug)->firstOrFail();
         $category->delete();
-        return redirect()->back()->with('status', 'category-deleted');
+        return redirect()->route('admin.categories.index')->with('status', 'item-deleted');
     }
 
     public function search(Request $request)
     {
+        $user = Auth::user();
         if (request('search') == null) :
             $categories = Category::orderBy('id', 'DESC')->paginate(10);
         else :
-            $categories = Category::where('title', 'ilike', '%' . request('search') . '%')->orWhere('slug', 'ilike', '%' . request('search') . '%')->paginate(10);
+            $categories = Category::where('title', 'ilike', '%' . request('search') . '%')
+            ->orWhere('slug', 'ilike', '%' . request('search') . '%')
+            ->orWhere('id', 'ilike', '%' . request('search') . '%')
+            ->paginate(10);
         endif;
-        return response()->json([
-            'categories' => $categories
-        ]);
+        return view('admin.category.index', compact('categories','user'));
     }
 }
