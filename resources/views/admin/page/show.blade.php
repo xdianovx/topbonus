@@ -22,11 +22,11 @@
 
                                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink1" style="">
                                                 <li>
-                                                    <a type="button" class="dropdown-item" href="{{ route('admin.categories.index') }}">
+                                                    <a type="button" class="dropdown-item" href="{{ route('admin.pages.index') }}">
                                                         <i class="ri-arrow-left-line align-bottom me-2 text-muted"></i> Back</a>
                                                 </li>
 
-                                                <li><a href="{{ route('admin.categories.edit', $item->slug) }}" class="dropdown-item edit-item-btn"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a></li>
+                                                <li><a href="{{ route('admin.pages.edit', $item->slug) }}" class="dropdown-item edit-item-btn"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a></li>
                                                 <li>
                                                     <button type="submit" class="dropdown-item text-danger"
                                                     data-bs-toggle="modal"
@@ -38,14 +38,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                @if (!empty($item->image))
-                                <div class="d-flex mb-4">
-                                    <div class="flex-shrink-0">
-                                        <img src="{{ Storage::url($item->image) }}" alt="" height="200" class="rounded">
-                                    </div>
-                                </div>
-                                @else
-                                @endif
                             </div>
                             <!--end card-body-->
                         </div>
@@ -67,7 +59,14 @@
                                                     <th class="ps-0" scope="row">Slug:</th>
                                                     <td class="text-muted">{{$item->slug}}</td>
                                                 </tr>
-                                       
+                                                <tr>
+                                                    <th class="ps-0" scope="row">Created At:</th>
+                                                    <td class="text-muted">{{$item->created_at}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="ps-0" scope="row">Updated At:</th>
+                                                    <td class="text-muted">{{$item->updated_at}}</td>
+                                                </tr>
                                                 <tr>
                                                     <th class="ps-0" scope="row">Description:</th>
                                                     <td class="text-muted">{{$item->description}}</td>
@@ -93,7 +92,7 @@
                                                                     data-bs-dismiss="modal">
                                                                     Close
                                                                 </button>
-                                                                <form action="{{ route('admin.categories.destroy', $item->slug) }}"
+                                                                <form action="{{ route('admin.pages.destroy', $item->slug) }}"
                                                                     method="POST">
                                                                     @csrf
                                                                     @method('DELETE')

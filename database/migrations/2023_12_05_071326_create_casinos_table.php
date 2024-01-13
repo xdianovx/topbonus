@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('link');
             $table->string('logo')->nullable();
             $table->text('description')->nullable();
+            $table->text('description_footer')->nullable();
 
             $table->foreignId('category_id');
 

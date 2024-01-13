@@ -62,20 +62,15 @@
                                                         name="logo" placeholder="">
                                                 </div>
                                             </div>
-                                            <div class="row mt-2">
-                                                <div class="col-lg-12">
-                                                    <div class="card">
-                                                        <div class="card-body">
-                                                            <p class="text-muted">Description</p>
-                                                            <div class="snow-editor" style="height: 300px;">
-                                                                <input type="textarea" class="form-control" id="valueInput"
-                                                                    name="description" placeholder="Enter text">
-                                                            </div> <!-- end Snow-editor-->
-                                                        </div><!-- end card-body -->
-                                                    </div><!-- end card -->
-    
-                                                </div>
-                                                <!-- end col -->
+                                            <div class="mb-3">
+                                                <label class="form-label" for="basic-default-message">Description</label>
+                                                <textarea id="basic-default-message" class="form-control" name="description"
+                                                 placeholder="Text" style="height: 234px;">{{ old('description') }}</textarea>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="basic-default-message">Description Footer</label>
+                                                <textarea id="basic-default-message" class="form-control" name="description_footer"
+                                                 placeholder="Text" style="height: 234px;">{{ old('description_footer') }}</textarea>
                                             </div>
                                             <button type="submit">Create</button>
                                     </form>

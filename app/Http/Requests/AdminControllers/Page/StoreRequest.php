@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\AdminApi\Page;
+namespace App\Http\Requests\AdminControllers\Page;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,7 +24,7 @@ class StoreRequest extends FormRequest
         return [
             'title' => ['required', 'max:70'],
             'slug' => ['required', 'max:70'],
-            'description'  => ['required']
+            'description'  => ['nullable']
         ];
     }
 }

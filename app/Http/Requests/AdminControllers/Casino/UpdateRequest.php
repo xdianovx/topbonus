@@ -26,7 +26,8 @@ class UpdateRequest extends FormRequest
             'slug' => ['required', 'max:70'],
             'link' => ['required'],
             'logo' => 'nullable|image',
-            'description'  => ['nullable']
+            'description'  => ['nullable'],
+            'description_footer' => ['nullable']
         ];
     }
 }

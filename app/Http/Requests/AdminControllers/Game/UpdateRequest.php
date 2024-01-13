@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\AdminApi\Game;
+namespace App\Http\Requests\AdminControllers\Game;
 
 use Illuminate\Foundation\Http\FormRequest;
 

@@ -38,81 +38,125 @@
                         </ul>
                     </div>
                 </li>
-
                 <li class="nav-item">
-                    <a class="nav-link menu-link @if (in_array(Route::current()->getName(), [
-                        'admin.casinos.index',
-                        'admin.casinos.search',
-                        'admin.casinos.show',
-                        'admin.casinos.edit',
-                        'admin.casinos.create'
-                    ])) active @endif" href="{{ route('admin.casinos.index') }}" aria-expanded="false"
-                        aria-controls="sidebarLayouts">
-                        <i data-feather="activity"></i> <span data-key="t-layouts">Casinos</span>
+                    <a class="nav-link menu-link  @if (in_array(Route::current()->getName(), $pages_routes)) active @endif"
+                        href="{{ route('admin.pages.index') }}" aria-expanded="false" aria-controls="sidebarLayouts">
+                        <i class="mdi mdi-book-open-page-variant"></i> <span data-key="t-layouts">Pages</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link  @if (in_array(Route::current()->getName(), [
-                         'admin.bonus_cards.index',
-                        'admin.bonus_cards.search',
-                        'admin.bonus_cards.show',
-                        'admin.bonus_cards.edit',
-                        'admin.bonus_cards.create'
-                    ])) active @endif" href="{{ route('admin.bonus_cards.index') }}" aria-expanded="false"
+                    <a class="nav-link menu-link @if (in_array(Route::current()->getName(), $casinos_routes)) active @endif"
+                        href="{{ route('admin.casinos.index') }}" aria-expanded="false" aria-controls="sidebarLayouts">
+                        <i class="mdi mdi-slot-machine-outline"></i> <span data-key="t-layouts">Casinos</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link  @if (in_array(Route::current()->getName(), $categories_routes)) active @endif"
+                        href="{{ route('admin.categories.index') }}" aria-expanded="false"
                         aria-controls="sidebarLayouts">
-                        <i class="las la-columns"></i> <span data-key="t-layouts">Bonuses</span>
+                        <i class="mdi mdi-border-all"></i> <span data-key="t-layouts">Categories</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link  @if (in_array(Route::current()->getName(), [
-                        'admin.categories.index',
-                        'admin.categories.search',
-                        'admin.categories.show',
-                        'admin.categories.edit',
-                        'admin.categories.create'
-                    ])) active @endif" href="{{ route('admin.categories.index') }}" aria-expanded="false"
+                    <a class="nav-link menu-link  @if (in_array(Route::current()->getName(), $softs_routes)) active @endif"
+                        href="{{ route('admin.softs.index') }}" aria-expanded="false"
                         aria-controls="sidebarLayouts">
-                        <i class="las la-columns"></i> <span data-key="t-layouts">Categories</span>
+                        <i class="mdi mdi-feather"></i> <span data-key="t-layouts">Softs</span>
                     </a>
                 </li>
-{{-- 
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{ route('admin.bonus_code.index') }}" aria-expanded="false"
-                        aria-controls="sidebarLayouts">
-                        <i class="las la-columns"></i> <span data-key="t-layouts">Bonus Codes</span>
+                    <a class="nav-link menu-link @if (in_array(Route::current()->getName(), $bonus_types_routes)
+                        || in_array(Route::current()->getName(), $bonus_cards_routes)) 
+                            active @endif" href="#sidebarBonusCard" data-bs-toggle="collapse" role="button"
+                        aria-expanded="@if (in_array(Route::current()->getName(), $bonus_types_routes)
+                        || in_array(Route::current()->getName(), $bonus_cards_routes)) 
+                        true @else false @endif" aria-controls="sidebarBonusCard">
+                        <i class="mdi mdi-gift"></i> <span data-key="t-dashboards">Bonuses</span>
                     </a>
-                </li> --}}
-
-
-
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarLayouts" data-bs-toggle="collapse" role="button"
-                        aria-expanded="false" aria-controls="sidebarLayouts">
-                        <i class="las la-columns"></i> <span data-key="t-layouts">Layouts</span> <span
-                            class="badge badge-pill bg-danger" data-key="t-hot">Hot</span>
-                    </a>
-                    <div class="collapse menu-dropdown" id="sidebarLayouts">
+                    <div class="collapse menu-dropdown @if (in_array(Route::current()->getName(), $bonus_types_routes)
+                        || in_array(Route::current()->getName(), $bonus_cards_routes)) show @endif" id="sidebarBonusCard">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="layouts-horizontal.html" target="_blank" class="nav-link"
-                                    data-key="t-horizontal">Horizontal</a>
+                                <a href="{{ route('admin.bonus_types.index') }}"
+                                     class="nav-link @if (in_array(Route::current()->getName(), $bonus_types_routes)) active @endif" data-key="t-analytics">
+                                    Bonus Type</a>
                             </li>
                             <li class="nav-item">
-                                <a href="layouts-detached.html" target="_blank" class="nav-link"
-                                    data-key="t-detached">Detached</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="layouts-two-column.html" target="_blank" class="nav-link"
-                                    data-key="t-two-column">Two Column</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="layouts-vertical-hovered.html" target="_blank" class="nav-link"
-                                    data-key="t-hovered">Hovered</a>
+                                <a class="nav-link menu-link  @if (in_array(Route::current()->getName(), $bonus_cards_routes)) active @endif"
+                                    href="{{ route('admin.bonus_cards.index') }}" aria-expanded="false"
+                                    aria-controls="sidebarLayouts">
+                                     <span data-key="t-layouts">Bonus Cards</span>
+                                </a>
                             </li>
                         </ul>
                     </div>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link @if (in_array(Route::current()->getName(), $game_types_routes)
+                        || in_array(Route::current()->getName(), $games_routes)) 
+                            active @endif" href="#sidebarGames" data-bs-toggle="collapse" role="button"
+                        aria-expanded="@if (in_array(Route::current()->getName(), $game_types_routes)
+                        || in_array(Route::current()->getName(), $games_routes)) 
+                        true @else false @endif" aria-controls="sidebarGames">
+                        <i class="ri-gamepad-line"></i> <span data-key="t-dashboards">Games</span>
+                    </a>
+                    <div class="collapse menu-dropdown @if (in_array(Route::current()->getName(), $game_types_routes)
+                        || in_array(Route::current()->getName(), $games_routes)) show @endif" id="sidebarGames">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.game_types.index') }}" 
+                                class="nav-link   @if (in_array(Route::current()->getName(), $game_types_routes)) active @endif" data-key="t-analytics">
+                                    Game Type</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.games.index') }}"
+                                 class="nav-link  @if (in_array(Route::current()->getName(), $games_routes)) active @endif" data-key="t-analytics">
+                                    Games</a>
+                            </li>
 
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link 
+                    @if (in_array(Route::current()->getName(), $certificates_routes)
+                    || in_array(Route::current()->getName(), $licenses_routes)) 
+                        active @endif" href="#sidebarCertificates&Licenses" data-bs-toggle="collapse" role="button"
+                        aria-expanded="@if (in_array(Route::current()->getName(), $certificates_routes)
+                        || in_array(Route::current()->getName(), $licenses_routes)) 
+                        true @else false @endif" 
+                        aria-controls="sidebarCertificates&Licenses">
+                        <i class="mdi mdi-certificate-outline"></i> <span data-key="t-dashboards">Certificates & Licenses</span>
+                    </a>
+                    <div class="collapse menu-dropdown @if (in_array(Route::current()->getName(), $certificates_routes)
+                    || in_array(Route::current()->getName(), $licenses_routes)) show @endif" id="sidebarCertificates&Licenses">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link  @if (in_array(Route::current()->getName(),$certificates_routes)) active @endif"
+                                    href="{{ route('admin.certificates.index') }}" aria-expanded="false"
+                                    aria-controls="sidebarLayouts">
+                                     <span data-key="t-layouts">Certificates</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link  @if (in_array(Route::current()->getName(), $licenses_routes)) active @endif"
+                                    href="{{ route('admin.licenses.index') }}" aria-expanded="false"
+                                    aria-controls="sidebarLayouts">
+                                     <span data-key="t-layouts">Licenses</span>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </li>
+                
+                {{-- <li class="nav-item">
+                    <a class="nav-link menu-link" href="#" aria-expanded="false"
+                        aria-controls="sidebarLayouts">
+                        <i class="mdi mdi-chart-line"></i> <span data-key="t-layouts">SEO</span>
+                    </a>
+                </li> --}}
             </ul>
         </div>
         <!-- Sidebar -->

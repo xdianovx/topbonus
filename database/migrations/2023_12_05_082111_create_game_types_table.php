@@ -16,8 +16,9 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug');
             $table->string('icon');
-            $table->boolean('live');
+            $table->boolean('live')->default(false);
             $table->text('description')->nullable();
+            $table->text('description_footer')->nullable();
             $table->timestamps();
         });
     }

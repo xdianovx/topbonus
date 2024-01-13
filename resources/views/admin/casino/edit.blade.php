@@ -28,7 +28,7 @@
                                         <div class="row gy-4">
                                             <div class="col-xxl-6 col-md-6">
                                                 <div>
-                                                    <label for="valueInput" class="form-label">Название</label>
+                                                    <label for="valueInput" class="form-label">Title *</label>
                                                     <input type="text" class="form-control" id="valueInput"
                                                         name="title" placeholder="">
                                                 </div>
@@ -36,12 +36,21 @@
 
                                             <div class="col-xxl-6 col-md-6">
                                                 <div>
-                                                    <label for="valueInput" class="form-label">Логотип</label>
+                                                    <label for="valueInput" class="form-label">Logo</label>
                                                     <input type="file" class="form-control" id="valueInput"
                                                         name="logo" placeholder="">
                                                 </div>
                                             </div>
-
+                                            <div class="mb-3">
+                                                <label class="form-label" for="basic-default-message">Description</label>
+                                                <textarea id="basic-default-message" class="form-control" name="description"
+                                                 placeholder="Text" style="height: 234px;">{{$item->description}}</textarea>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="basic-default-message">Description Footer</label>
+                                                <textarea id="basic-default-message" class="form-control" name="description_footer"
+                                                 placeholder="Text" style="height: 234px;">{{$item->description_footer}}</textarea>
+                                            </div>
                                             <button type="submit">Добавить</button>
                                     </form>
 

@@ -67,10 +67,21 @@
                                                     <th class="ps-0" scope="row">Slug:</th>
                                                     <td class="text-muted">{{$item->slug}}</td>
                                                 </tr>
-                                       
+                                                <tr>
+                                                    <th class="ps-0" scope="row">Created At:</th>
+                                                    <td class="text-muted">{{$item->created_at}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="ps-0" scope="row">Updated At:</th>
+                                                    <td class="text-muted">{{$item->updated_at}}</td>
+                                                </tr>
                                                 <tr>
                                                     <th class="ps-0" scope="row">Description:</th>
                                                     <td class="text-muted">{{$item->description}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="ps-0" scope="row">Description Footer:</th>
+                                                    <td class="text-muted">{{$item->description_footer}}</td>
                                                 </tr>
                                                 <div class="modal fade" id="modalScrollable{{ $item->slug }}" tabindex="-1"
                                                     style="display: none;" aria-hidden="true">

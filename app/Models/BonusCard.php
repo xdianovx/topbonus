@@ -21,6 +21,13 @@ class BonusCard extends Model
         'dislike',
         'used_link',
     ];
+    public static $bonus_cards_routes = [
+        'admin.bonus_cards.index',
+        'admin.bonus_cards.search',
+        'admin.bonus_cards.show',
+        'admin.bonus_cards.edit',
+        'admin.bonus_cards.create',
+    ];
     public function getRouteKeyName()
     {
         return 'slug';

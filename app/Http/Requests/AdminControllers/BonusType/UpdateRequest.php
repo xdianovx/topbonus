@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\AdminApi\BonusType;
+namespace App\Http\Requests\AdminControllers\BonusType;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,7 +24,8 @@ class UpdateRequest extends FormRequest
         return [
             'title' => ['required', 'max:70'],
             'slug' => ['required', 'max:70'],
-            'description'  => ['nullable']
+            'description'  => ['nullable'],
+            'description_footer' => ['nullable']
         ];
     }
 }

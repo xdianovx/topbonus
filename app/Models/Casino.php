@@ -8,7 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Casino extends Model
 {
     use HasFactory;
-    protected $fillable = ['title','slug','link','logo','description'];
+    protected $fillable = ['title','slug','link','logo','description','description_footer'];
+    public static $casinos_routes = [
+      'admin.casinos.index',
+      'admin.casinos.search',
+      'admin.casinos.show',
+      'admin.casinos.edit',
+      'admin.casinos.create',
+    ];
     public function getRouteKeyName()
     {
         return 'slug';

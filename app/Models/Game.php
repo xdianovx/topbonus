@@ -8,7 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Game extends Model
 {
     use HasFactory;
-    protected $fillable = ['title','slug','image','description'];
+    protected $fillable = ['title','slug','image','description','game_type_id'];
+    public static $games_routes = [
+        'admin.games.index',
+        'admin.games.search',
+        'admin.games.show',
+        'admin.games.edit',
+        'admin.games.create',
+    ];
     public function getRouteKeyName()
     {
         return 'slug';

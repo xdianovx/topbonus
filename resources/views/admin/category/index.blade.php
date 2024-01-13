@@ -11,9 +11,9 @@
                                 <div class="search-box">
                                     <form class="d-flex" action="{{ route('admin.categories.search') }}" method="get">
                                         @csrf
-                                        <input class="form-control me-2" type="search" name="search" placeholder="Поиск"
+                                        <input class="form-control me-2" type="search" name="search" placeholder="Search"
                                             aria-label="Search">
-                                        <button class="btn btn-outline-primary" type="submit">Поиск</button>
+                                        <button class="btn btn-outline-primary" type="submit">Search</button>
                                     </form>
                                     {{-- <input type="text" class="form-control" id="searchMemberList"
                                         placeholder="Search casino">

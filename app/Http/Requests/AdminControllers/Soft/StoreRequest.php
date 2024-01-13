@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\AdminApi\Soft;
+namespace App\Http\Requests\AdminControllers\Soft;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -26,7 +26,9 @@ class StoreRequest extends FormRequest
             'slug' => ['required', 'max:70'],
             'link' => ['required'],
             'logo' => 'nullable|image',
-            'description'  => ['nullable']
+            'casino_id' => 'required|string',
+            'description'  => ['nullable'],
+            'description_footer' => ['nullable']
         ];
     }
 }

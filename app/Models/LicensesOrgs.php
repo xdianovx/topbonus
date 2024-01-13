@@ -12,7 +12,15 @@ class LicensesOrgs extends Model
         'title',
         'description',
         'logo',
-        'link'
+        'link',
+        'casino_id'
+    ];
+    public static $licenses_routes = [
+        'admin.licenses.index',
+        'admin.licenses.search',
+        'admin.licenses.show',
+        'admin.licenses.edit',
+        'admin.licenses.create',
     ];
     public function casino()
     {

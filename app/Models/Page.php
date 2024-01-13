@@ -9,6 +9,13 @@ class Page extends Model
 {
     use HasFactory;
     protected $fillable = ['title','slug','description'];
+    public static $pages_routes = [
+        'admin.pages.index',
+        'admin.pages.search',
+        'admin.pages.show',
+        'admin.pages.edit',
+        'admin.pages.create',
+    ];
     public function getRouteKeyName()
     {
         return 'slug';
