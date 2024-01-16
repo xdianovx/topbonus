@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('certificates_orgs', function (Blueprint $table) {
+        Schema::create('casino_game_type', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->nullable();
-            $table->text('description')->nullable();
-            $table->string('link')->nullable();
-            $table->string('logo')->nullable();
+            $table->foreignId('casino_id');
+            $table->foreignId('game_type_id');
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('certificates_orgs');
+        Schema::dropIfExists('casino_game_type');
     }
 };

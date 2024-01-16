@@ -59,7 +59,7 @@
                                             <div class="col-xxl-6 col-md-6">
                                                 <label for="valueInput" class="form-label">Game Type *</label>
                                                 @if (!count($game_types) == 0)
-                                                <select type="text" class="form-control" name="game_type_id" id="valueInput">
+                                                <select type="text" data-choices class="form-control" name="game_type_id" id="valueInput">
                                                     @foreach ($game_types as $item)
                                                     <option value="{{ $item->id }}"
                                                         {{ $item->id == old('game_type_id') ? 'selected' : '' }}>

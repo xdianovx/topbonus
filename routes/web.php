@@ -60,6 +60,7 @@ Route::middleware('auth:sanctum')->name('admin.')->prefix('admin')->group(functi
     });
     Route::name('casinos.')->prefix('casinos')->group(function () {
         Route::get('/', [CasinoController::class, 'index'])->name('index');
+        Route::get('/search',  [CasinoController::class, 'search'])->name('search');
         Route::get('/create', [CasinoController::class, 'create'])->name('create');
         Route::post('/store', [CasinoController::class, 'store'])->name('store');
         Route::get('/{casino_slug}', [CasinoController::class, 'show'])->name('show');

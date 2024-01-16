@@ -27,7 +27,13 @@ class StoreRequest extends FormRequest
             'link' => ['required'],
             'logo' => 'nullable|image',
             'description'  => ['nullable'],
-            'description_footer' => ['nullable']
+            'description_footer' => ['nullable'],
+            'license_id' => 'required|string',
+            'certificate_id' => 'required|string',
+            'countries' => 'nullable|array',
+            'countries.*' => 'nullable|string|exists:countries,title',
+            'game_types' => 'nullable|array',
+            'game_types.*' => 'nullable|string|exists:game_types,title',
         ];
     }
 }

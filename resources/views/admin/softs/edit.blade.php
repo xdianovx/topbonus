@@ -76,13 +76,13 @@
                                                 </div>
                                             </div>
                                             <div class="col-xxl-6 col-md-6">
-                                                <label for="valueCasino" class="form-label">Casino *</label>
+                                                <label for="valueInput" class="form-label">Casino *</label>
                                                 @if (!count($casinos) == 0)
-                                                    <select id="valueCasino" class="form-control" name="casino_id">
-                                                        @foreach ($casinos as $item)
-                                                            <option value="{{ $item->id }}"
-                                                                {{ $item->id == $item->casino_id ? 'selected' : '' }}>
-                                                                {{ $item->title }}
+                                                    <select type="text" data-choices class="form-control" name="casino_id" id="valueInput">
+                                                        @foreach ($casinos as $casino)
+                                                            <option value="{{ $casino->id }}"
+                                                                {{ $casino->id == $item->casino_id ? 'selected' : '' }}>
+                                                                {{ $casino->title }}
                                                             </option>
                                                         @endforeach
                                                     </select>

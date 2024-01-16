@@ -33,8 +33,7 @@ class LicensesOrgsController extends Controller
     {
 
         $user = Auth::user();
-        $casinos = Casino::all();
-        return view('admin.licenses.create', compact('user','casinos'));
+        return view('admin.licenses.create', compact('user'));
     }
     public function store(StoreRequest $request)
     {
@@ -63,8 +62,7 @@ class LicensesOrgsController extends Controller
 
         $user = Auth::user();
         $item = LicensesOrgs::whereId($licens->id)->firstOrFail();
-        $casinos = Casino::all();
-        return view('admin.licenses.edit', compact('user','item','casinos'));
+        return view('admin.licenses.edit', compact('user','item'));
     }
     public function update(UpdateRequest $request, LicensesOrgs $licens)
     {

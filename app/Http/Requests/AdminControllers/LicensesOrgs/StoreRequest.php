@@ -25,7 +25,6 @@ class StoreRequest extends FormRequest
             'title' => ['required', 'max:70'],
             'link' => ['required'],
             'logo' => 'nullable|image',
-            'casino_id' => 'required|string',
             'description'  => ['nullable']
         ];
     }

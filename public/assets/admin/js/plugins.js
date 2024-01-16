@@ -9,4 +9,6 @@
     ),
     document.writeln(
         "<script type='text/javascript' src='/assets/admin/libs/flatpickr/flatpickr.min.js'></script>"
-    ));
+    )
+    
+);

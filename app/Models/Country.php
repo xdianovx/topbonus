@@ -11,12 +11,12 @@ class Country extends Model
     protected $fillable = ['title','country_code','icon'];
     public function casino()
     {
-        return $this->belongsTo(Casino::class);
+        return $this->belongsToMany(Casino::class);
         
     }
     public function bonus_card()
     {
-        return $this->belongsTo(BonusCard::class);
+        return $this->belongsToMany(BonusCard::class);
         
     }
 }

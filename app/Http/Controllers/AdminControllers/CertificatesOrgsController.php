@@ -34,8 +34,7 @@ class CertificatesOrgsController extends Controller
     {
 
         $user = Auth::user();
-        $casinos = Casino::all();
-        return view('admin.certificates.create', compact('user','casinos'));
+        return view('admin.certificates.create', compact('user'));
     }
     public function store(StoreRequest $request)
     {
@@ -64,8 +63,7 @@ class CertificatesOrgsController extends Controller
 
         $user = Auth::user();
         $item = CertificatesOrgs::whereId($certificat->id)->firstOrFail();
-        $casinos = Casino::all();
-        return view('admin.certificates.edit', compact('user','item','casinos'));
+        return view('admin.certificates.edit', compact('user','item'));
     }
     public function update(UpdateRequest $request, CertificatesOrgs $certificat)
     {

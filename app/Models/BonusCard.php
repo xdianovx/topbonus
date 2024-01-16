@@ -50,7 +50,7 @@ class BonusCard extends Model
 
     public function country()
     {
-      return $this->hasMany(Country::class);
+      return $this->belongsToMany(Country::class);
     }
     public function rating()
     {

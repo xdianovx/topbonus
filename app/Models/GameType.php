@@ -15,14 +15,14 @@ class GameType extends Model
         'admin.game_types.show',
         'admin.game_types.edit',
         'admin.game_types.create',
-    ];
+    ]; 
     public function getRouteKeyName()
     {
         return 'slug';
     }
     public function casino()
     {
-        return $this->belongsTo(Casino::class);
+        return $this->belongsToMany(Casino::class);
         
     }
     public function games()

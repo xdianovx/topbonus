@@ -12,8 +12,7 @@ class LicensesOrgs extends Model
         'title',
         'description',
         'logo',
-        'link',
-        'casino_id'
+        'link'
     ];
     public static $licenses_routes = [
         'admin.licenses.index',
@@ -22,9 +21,9 @@ class LicensesOrgs extends Model
         'admin.licenses.edit',
         'admin.licenses.create',
     ];
-    public function casino()
+    public function casinos()
     {
-        return $this->belongsTo(Casino::class);
+        return $this->hasMany(Casino::class);
         
     }
 }

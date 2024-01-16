@@ -12,8 +12,7 @@ class CertificatesOrgs extends Model
         'title',
         'description',
         'logo',
-        'link',
-        'casino_id'
+        'link'
     ];
     public static $certificates_routes = [
         'admin.certificates.index',
@@ -25,7 +24,7 @@ class CertificatesOrgs extends Model
     
     public function casino()
     {
-        return $this->belongsTo(Casino::class);
+        return $this->hasMany(Casino::class);
         
     }
 }

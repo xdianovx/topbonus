@@ -8,7 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Casino extends Model
 {
     use HasFactory;
-    protected $fillable = ['title','slug','link','logo','description','description_footer'];
+    protected $fillable = [
+      'title',
+      'slug',
+      'link',
+      'logo',
+      'description',
+      'description_footer',
+      'license_id',
+      'certificate_id'
+    ];
+
     public static $casinos_routes = [
       'admin.casinos.index',
       'admin.casinos.search',
@@ -20,11 +30,7 @@ class Casino extends Model
     {
         return 'slug';
     }
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
-        
-    }
+
     public function seo_meta()
     {
         return $this->morphOne(SeoMeta::class, 'seo_metaable');
@@ -33,30 +39,11 @@ class Casino extends Model
     {
       return $this->hasMany(BonusCard::class);
     }
-    public function licenses()
-    {
-      return $this->hasMany(LicensesOrgs::class);
-    }
-    public function certificates()
-    {
-      return $this->hasMany(CertificatesOrgs::class);
-    }
-    public function available_languages()
-    {
-      return $this->hasMany(Country::class);
-    }
-    public function countries()
-    {
-      return $this->hasMany(Country::class);
-    }
     public function features()
     {
       return $this->hasMany(CasinoFeatures::class);
     }
-    public function game_types()
-    {
-      return $this->hasMany(GameType::class);
-    }
+ 
     public function software_providers()
     {
       return $this->hasMany(Soft::class);
@@ -64,5 +51,27 @@ class Casino extends Model
     public function rating()
     {
       return $this->hasMany(CasinoRating::class);
+    }
+    //belongsTo
+    public function license()
+    {
+      return $this->belongsTo(LicensesOrgs::class);
+    }
+    public function certificate()
+    {
+      return $this->belongsTo(CertificatesOrgs::class);
+    }
+    //belongsToMany
+    public function available_languages()
+    {
+      return $this->belongsToMany(Country::class);
+    }
+    public function countries()
+    {
+      return $this->belongsToMany(Country::class);
+    }
+    public function game_types()
+    {
+      return $this->belongsToMany(GameType::class);
     }
 }

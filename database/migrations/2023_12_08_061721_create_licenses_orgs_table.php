@@ -17,7 +17,6 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('link')->nullable();
             $table->string('logo')->nullable();
-            $table->foreignId('casino_id');
             $table->timestamps();
         });
     }

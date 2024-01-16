@@ -57,13 +57,13 @@
 
                                             </div>
                                             <div class="col-xxl-6 col-md-6">
-                                                <label for="valueCasino" class="form-label">Game Type *</label>
+                                                <label for="valueInput" class="form-label">Game Type *</label>
                                                 @if (!count($game_types) == 0)
-                                                    <select id="valueCasino" class="form-control" name="game_type_id">
-                                                        @foreach ($game_types as $item)
-                                                            <option value="{{ $item->id }}"
-                                                                {{ $item->id == $item->game_type_id ? 'selected' : '' }}>
-                                                                {{ $item->title }}
+                                                    <select type="text" data-choices class="form-control" name="game_type_id" id="valueInput">
+                                                        @foreach ($game_types as $game_type)
+                                                            <option value="{{ $game_type->id }}"
+                                                                {{ $game_type->id == $item->game_type_id ? 'selected' : '' }}>
+                                                                {{ $game_type->title }}
                                                             </option>
                                                         @endforeach
                                                     </select>

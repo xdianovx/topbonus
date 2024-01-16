@@ -25,6 +25,7 @@ return new class extends Migration
             $table->integer('dislike')->default(0);
             $table->integer('used_link')->default(0);
 
+            $table->foreignId('category_id');
             $table->foreignId('country_id');
             $table->foreignId('casino_id');
             $table->foreignId('bonus_type_id');

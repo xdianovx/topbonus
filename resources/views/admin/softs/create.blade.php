@@ -73,11 +73,15 @@
                                             <div class="col-xxl-6 col-md-6">
                                                 <label for="valueInput" class="form-label">Casino *</label>
                                                 @if (!count($casinos) == 0)
-                                                <select type="text" class="form-control" name="casino_id" id="valueInput">
+                                                <select type="text" data-choices class="form-control" name="casino_id" id="valueInput">
                                                     @foreach ($casinos as $item)
-                                                        <option value="{{ $item->id }}">{{ $item->title }}</option>
-                                                    @endforeach
+                                                    <option value="{{ $item->id }}"
+                                                        {{ $item->id == old('casino_id') ? 'selected' : '' }}>
+                                                        {{ $item->title }}
+                                                    </option>
+                                                @endforeach
                                                 </select>
+                                              
                                                 @else
                                                 <div class="text-danger">No entries exist, create an entry in the Casino table
                                                 </div>

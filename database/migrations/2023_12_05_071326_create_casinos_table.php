@@ -19,9 +19,8 @@ return new class extends Migration
             $table->string('logo')->nullable();
             $table->text('description')->nullable();
             $table->text('description_footer')->nullable();
-
-            $table->foreignId('category_id');
-
+            $table->string('license_id')->nullable();
+            $table->string('certificate_id')->nullable();
             $table->timestamps();
         });
     }
