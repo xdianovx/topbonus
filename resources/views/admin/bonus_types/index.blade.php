@@ -69,7 +69,7 @@
                                             <thead class="table-light">
                                                 <tr>
                                                     <th scope="col" style="width: 80px;">ID</th>
-w                                                    <th scope="col">Title</th>
+                                                    <th scope="col">Title</th>
                                                     <th scope="col" style="width: 150px;">Updated</th>
                                                     <th scope="col" style="width: 150px;">Action</th>
                                                 </tr>

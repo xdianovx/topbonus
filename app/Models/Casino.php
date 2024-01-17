@@ -74,4 +74,5 @@ class Casino extends Model
     {
       return $this->belongsToMany(GameType::class);
     }
+    
 }

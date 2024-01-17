@@ -78,9 +78,10 @@
                                             <div class="col-xxl-6 col-md-6">
                                                 <label for="valueInput" class="form-label">Casino *</label>
                                                 @if (!count($casinos) == 0)
-                                                    <select type="text" data-choices class="form-control" name="casino_id" id="valueInput">
+                                                    <select type="text" data-choices class="form-control"
+                                                        name="casino_id" id="valueInput">
                                                         @foreach ($casinos as $casino)
-                                                            <option value="{{ $casino->id }}"
+                                                            <option value="{{ $casino->title }}"
                                                                 {{ $casino->id == $item->casino_id ? 'selected' : '' }}>
                                                                 {{ $casino->title }}
                                                             </option>
@@ -88,7 +89,8 @@
                                                     </select>
                                                 @else
                                                     <div class="text-danger">No entries exist, create an entry in the Casino
-                                                        table</div>
+                                                        table
+                                                    </div>
                                                 @endif
                                             </div>
                                             <div class="mb-3">
@@ -97,9 +99,10 @@
 
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label" for="basic-default-message">Description Footer</label>
-                                                <textarea id="basic-default-message" class="form-control" name="description_footer"
-                                                 placeholder="Text" style="height: 234px;">{{$item->description_footer}}</textarea>
+                                                <label class="form-label" for="basic-default-message">Description
+                                                    Footer</label>
+                                                <textarea id="basic-default-message" class="form-control" name="description_footer" placeholder="Text"
+                                                    style="height: 234px;">{{ $item->description_footer }}</textarea>
                                             </div>
                                         </div>
                                         <button type="submit"

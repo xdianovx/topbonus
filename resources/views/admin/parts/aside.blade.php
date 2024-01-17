@@ -5,10 +5,10 @@
         <!-- Light Logo-->
         <a href="{{ route('admin.index') }}" class="logo logo-light">
             <span class="logo-sm">
-                <img src="{{ asset('assets/admin/images/logo-sm.png') }}" height="22">
+                <img src="{{ asset('assets/admin/images/logo-sm.svg') }}" height="22">
             </span>
             <span class="logo-lg">
-                <img src="{{ asset('assets/admin/images/logo-light.png') }}" height="17">
+                <img src="{{ asset('assets/admin/images/logo-light.svg') }}" height="17">
             </span>
         </a>
         <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover"

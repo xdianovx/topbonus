@@ -58,9 +58,8 @@
                                             <div class="col-xxl-6 col-md-6">
                                                 <div>
                                                     <label for="valueInput" class="form-label">Link *</label>
-                                                    <input type="text" value="{{ old('link') }}"
-                                                        class="form-control" id="valueInput" name="link"
-                                                        placeholder="Enter text">
+                                                    <input type="text" value="{{ old('link') }}" class="form-control"
+                                                        id="valueInput" name="link" placeholder="Enter text">
                                                 </div>
                                             </div>
                                             <div class="col-xxl-6 col-md-6">
@@ -73,29 +72,30 @@
                                             <div class="col-xxl-6 col-md-6">
                                                 <label for="valueInput" class="form-label">Casino *</label>
                                                 @if (!count($casinos) == 0)
-                                                <select type="text" data-choices class="form-control" name="casino_id" id="valueInput">
-                                                    @foreach ($casinos as $item)
-                                                    <option value="{{ $item->id }}"
-                                                        {{ $item->id == old('casino_id') ? 'selected' : '' }}>
-                                                        {{ $item->title }}
-                                                    </option>
-                                                @endforeach
-                                                </select>
-                                              
+                                                    <select type="text" data-choices class="form-control"
+                                                        name="casino_id" id="valueInput">
+                                                        @foreach ($casinos as $item)
+                                                            <option value="{{ $item->title }}"
+                                                                {{ $item->id == old('casino_id') ? 'selected' : '' }}>
+                                                                {{ $item->title }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
                                                 @else
-                                                <div class="text-danger">No entries exist, create an entry in the Casino table
-                                                </div>
+                                                    <div class="text-danger">No entries exist, create an entry in the Casino
+                                                        table
+                                                    </div>
                                                 @endif
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label" for="basic-default-message">Description</label>
-                                                <textarea id="basic-default-message" class="form-control" 
-                                                name="description" placeholder="Text" style="height: 234px;">{{ old('description') }}</textarea>
+                                                <textarea id="basic-default-message" class="form-control" name="description" placeholder="Text" style="height: 234px;">{{ old('description') }}</textarea>
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label" for="basic-default-message">Description Footer</label>
-                                                <textarea id="basic-default-message" class="form-control" name="description_footer"
-                                                 placeholder="Text" style="height: 234px;">{{ old('description_footer') }}</textarea>
+                                                <label class="form-label" for="basic-default-message">Description
+                                                    Footer</label>
+                                                <textarea id="basic-default-message" class="form-control" name="description_footer" placeholder="Text"
+                                                    style="height: 234px;">{{ old('description_footer') }}</textarea>
                                             </div>
                                         </div>
                                         <button type="submit"

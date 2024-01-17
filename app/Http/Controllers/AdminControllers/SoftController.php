@@ -35,6 +35,10 @@ class SoftController extends Controller
     public function store(StoreRequest $request)
     {
         $data = $request->validated();
+        if (isset($data['casino_id'])) :
+            $casino_id = Casino::where('title',$data['casino_id'])->first()->id;
+            array_replace($data, [$data['casino_id'] = $casino_id]);
+         endif;
           // Если есть файл
           if ($request->hasFile('image')) {
             // Имя и расширение файла
@@ -63,6 +67,10 @@ class SoftController extends Controller
     {
         $soft = Soft::whereSlug($soft_slug)->firstOrFail();
         $data = $request->validated();
+        if (isset($data['casino_id'])) :
+            $casino_id = Casino::where('title',$data['casino_id'])->first()->id;
+            array_replace($data, [$data['casino_id'] = $casino_id]);
+         endif;
         if ($request->hasFile('logo')) {
             // Имя и расширение файла
             $filenameWithExt = $request->file('logo')->getClientOriginalName();

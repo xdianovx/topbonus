@@ -66,7 +66,7 @@ class CasinoController extends Controller
             $license_id = LicensesOrgs::where('title',$data['license_id'])->first()->id;
             array_replace($data, [$data['license_id'] = $license_id]);
          endif;
-         dd($data);
+       
         // Если есть файл
         if ($request->hasFile('logo')) {
             // Имя и расширение файла

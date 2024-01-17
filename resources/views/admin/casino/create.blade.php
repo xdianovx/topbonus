@@ -150,6 +150,7 @@
                                                     </div>
                                                 @endif
                                             </div>
+                                            
                                             <div class="mb-3">
                                                 <label class="form-label" for="basic-default-message">Description *</label>
                                                 <textarea id="basic-default-message" class="form-control" name="description" placeholder="Text" style="height: 234px;">{{ old('description') }}</textarea>

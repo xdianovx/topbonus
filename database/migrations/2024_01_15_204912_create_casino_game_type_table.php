@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('casino_game_type', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('casino_id');
-            $table->foreignId('game_type_id');
+            $table->integer('casino_id')->unsigned();
+            $table->foreign('casino_id')->references('id')->on('casinos')->onDelete('cascade');
+            $table->integer('game_type_id')->unsigned();
+            $table->foreign('game_type_id')->references('id')->on('game_types')->onDelete('cascade');
             $table->timestamps();
         });
     }

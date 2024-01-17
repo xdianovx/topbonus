@@ -22,7 +22,7 @@
 
                                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink1" style="">
                                                 <li>
-                                                    <a type="button" class="dropdown-item" href="{{ route('admin.licenses.index') }}">
+                                                    <a type="button" class="dropdown-item" href="{{ url()->previous() }}">
                                                         <i class="ri-arrow-left-line align-bottom me-2 text-muted"></i> Back</a>
                                                 </li>
 
