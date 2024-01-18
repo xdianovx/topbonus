@@ -33,21 +33,13 @@ class PageController extends Controller
     public function store(StoreRequest $request)
     {
         $data = $request->validated();
-          // Если есть файл
-          if ($request->hasFile('image')) {
-            // Имя и расширение файла
-            $filenameWithExt = $request->file('image')->getClientOriginalName();
-            // Только оригинальное имя файла
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            $filename = str_replace(' ', '_', $filename);
-            // Расширение
-            $extention = $request->file('image')->getClientOriginalExtension();
-            // Путь для сохранения
-            $fileNameToStore = "image/" . $filename . "_" . time() . "." . $extention;
-            // Сохраняем файл
-            $data['image'] = $request->file('image')->storeAs('public', $fileNameToStore);
-        }
+        
+        if ($request->hasFile('image')):
+            $data['image'] = $this->loadFile($request,$data);
+            endif;  
+
         Page::firstOrCreate($data);
+        
         return redirect()->route('admin.pages.index')->with('status', 'item-created');
     }
     public function edit($page_slug)
@@ -60,19 +52,11 @@ class PageController extends Controller
     {
         $page = Page::whereSlug($page_slug)->firstOrFail();
         $data = $request->validated();
-        if ($request->hasFile('image')) {
-            // Имя и расширение файла
-            $filenameWithExt = $request->file('image')->getClientOriginalName();
-            // Только оригинальное имя файла
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            $filename = str_replace(' ', '_', $filename);
-            // Расширение
-            $extention = $request->file('image')->getClientOriginalExtension();
-            // Путь для сохранения
-            $fileNameToStore = "image/" . $filename . "_" . time() . "." . $extention;
-            // Сохраняем файл
-            $data['image'] = $request->file('image')->storeAs('public', $fileNameToStore);
-        }
+     
+        if ($request->hasFile('image')):
+            $data['image'] = $this->loadFile($request,$data);
+            endif;  
+
         $page->update($data);
         return redirect()->route('admin.pages.index')->with('status', 'item-updated');
     }
@@ -97,5 +81,21 @@ class PageController extends Controller
             ->paginate(10);
         endif;
         return view('admin.page.index', compact('pages','user'));
+    }
+    protected function loadFile(Request $request,$data)
+    {
+        // Имя и расширение файла
+        $filenameWithExt = $request->file('image')->getClientOriginalName();
+        // Только оригинальное имя файла
+        $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+        $filename = str_replace(' ', '_', $filename);
+        // Расширение
+        $extention = $request->file('image')->getClientOriginalExtension();
+        // Путь для сохранения
+        $fileNameToStore = "image/" . $filename . "_" . time() . "." . $extention;
+        // Сохраняем файл
+        $data = $request->file('image')->storeAs('public', $fileNameToStore);
+        return $data;
+        
     }
 }

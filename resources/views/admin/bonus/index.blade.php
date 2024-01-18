@@ -9,15 +9,12 @@
                         <div class="row g-2">
                             <div class="col-sm-4">
                                 <div class="search-box">
-                                    <form class="d-flex" action="{{ route('admin.casinos.search') }}" method="get">
+                                    <form class="d-flex" action="{{ route('admin.bonus_cards.search') }}" method="get">
                                         @csrf
                                         <input class="form-control me-2" type="search" name="search" placeholder="Search"
                                             aria-label="Search">
                                         <button class="btn btn-outline-primary" type="submit">Search</button>
                                     </form>
-                                    {{-- <input type="text" class="form-control" id="searchMemberList"
-                                        placeholder="Search casino">
-                                    <i class="ri-search-line search-icon"></i> --}}
                                 </div>
                             </div>
 
@@ -26,10 +23,10 @@
 
 
 
-                                    <a href="{{ route('admin.casinos.create') }}"
+                                    <a href="{{ route('admin.bonus_cards.create') }}"
                                         class="btn btn-success addMembers-modal">
                                         <i class="ri-add-fill me-1 align-bottom"></i>
-                                        Add Casino
+                                        Add Bonus Card
                                     </a>
                                 </div>
                             </div>
@@ -69,27 +66,21 @@
                                             <thead class="table-light">
                                                 <tr>
                                                     <th scope="col" style="width: 80px;">ID</th>
-                                                    <th scope="col" style="width: 80px;">Logo</th>
+                                                    <th scope="col" style="width: 80px;">Casino</th>
                                                     <th scope="col">Title</th>
                                                     <th scope="col" style="width: 150px;">Updated</th>
                                                     <th scope="col" style="width: 150px;">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @forelse ($casinos as $item)
+                                                @forelse ($bonus_cards as $item)
                                                     <tr>
                                                         <td>{{ $item->id }}</td>
                                                         <td>
-                                                            @if (!empty($item->logo))
-                                                                <div class="input-group">
-                                                                    <img src="{{ Storage::url($item->logo) }}"
-                                                                        class="rounded avatar-sm">
-                                                                </div>
-                                                            @else
-                                                            @endif
+                                                            {{ $item->casino->title }}
                                                         </td>
                                                         <td><a
-                                                                href="{{ route('admin.casinos.show', $item->slug) }}">{{ $item->title }}</a>
+                                                                href="{{ route('admin.bonus_cards.show', $item->slug) }}">{{ $item->title }}</a>
                                                         </td>
                                                         <td>{{ $item->updated_at->diffForHumans() }}</td>
                                                         <td>
@@ -101,11 +92,11 @@
                                                                     <i class="ri-more-fill align-middle"></i>
                                                                 </button>
                                                                 <ul class="dropdown-menu dropdown-menu-end" style="">
-                                                                    <li><a href="{{ route('admin.casinos.show', $item->slug) }}"
+                                                                    <li><a href="{{ route('admin.bonus_cards.show', $item->slug) }}"
                                                                             class="dropdown-item"><i
                                                                                 class="ri-eye-fill align-bottom me-2 text-muted"></i>
                                                                             View</a></li>
-                                                                    <li><a href="{{ route('admin.casinos.edit', $item->slug) }}"
+                                                                    <li><a href="{{ route('admin.bonus_cards.edit', $item->slug) }}"
                                                                             class="dropdown-item edit-item-btn"><i
                                                                                 class="ri-pencil-fill align-bottom me-2 text-muted"></i>
                                                                             Edit</a></li>
@@ -146,7 +137,7 @@
                                                                         Close
                                                                     </button>
                                                                     <form
-                                                                        action="{{ route('admin.casinos.destroy', $item->slug) }}"
+                                                                        action="{{ route('admin.bonus_cards.destroy', $item->slug) }}"
                                                                         method="POST">
                                                                         @csrf
                                                                         @method('DELETE')
@@ -166,8 +157,8 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    @if ($casinos->links()->paginator->hasPages())
-                                        {{ $casinos->links() }}
+                                    @if ($bonus_cards->links()->paginator->hasPages())
+                                        {{ $bonus_cards->links() }}
                                     @endif
                                 </div>
                             </div>

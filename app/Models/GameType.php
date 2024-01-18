@@ -20,9 +20,14 @@ class GameType extends Model
     {
         return 'slug';
     }
-    public function casino()
+    public function casinos()
     {
         return $this->belongsToMany(Casino::class);
+        
+    }
+    public function bonus_cards()
+    {
+        return $this->belongsToMany(BonusCard::class);
         
     }
     public function games()

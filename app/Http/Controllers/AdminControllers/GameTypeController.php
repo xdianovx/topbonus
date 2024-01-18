@@ -30,52 +30,41 @@ class GameTypeController extends Controller
         $user = Auth::user();
         return view('admin.game_types.create', compact('user'));
     }
+
     public function store(StoreRequest $request)
     {
         
         $data = $request->validated();
        
-          // Если есть файл
-          if ($request->hasFile('icon')) {
-            // Имя и расширение файла
-            $filenameWithExt = $request->file('icon')->getClientOriginalName();
-            // Только оригинальное имя файла
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            $filename = str_replace(' ', '_', $filename);
-            // Расширение
-            $extention = $request->file('icon')->getClientOriginalExtension();
-            // Путь для сохранения
-            $fileNameToStore = "icon/" . $filename . "_" . time() . "." . $extention;
-            // Сохраняем файл
-            $data['icon'] = $request->file('icon')->storeAs('public', $fileNameToStore);
-        }
+        if ($request->hasFile('icon')):
+            $data['icon'] = $this->loadFile($request,$data);
+            endif; 
+
         GameType::firstOrCreate($data);
+        
         return redirect()->route('admin.game_types.index')->with('status', 'item-created');
     }
+
     public function edit($game_type_slug)
     {
         $user = Auth::user();
         $item = GameType::whereSlug($game_type_slug)->firstOrFail();
         return view('admin.game_types.edit', compact('user','item'));
     }
+    
     public function update(UpdateRequest $request, $game_type_slug)
     {
         $game_type = GameType::whereSlug($game_type_slug)->firstOrFail();
+
         $data = $request->validated();
-        if ($request->hasFile('icon')) {
-            // Имя и расширение файла
-            $filenameWithExt = $request->file('icon')->getClientOriginalName();
-            // Только оригинальное имя файла
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            $filename = str_replace(' ', '_', $filename);
-            // Расширение
-            $extention = $request->file('icon')->getClientOriginalExtension();
-            // Путь для сохранения
-            $fileNameToStore = "icon/" . $filename . "_" . time() . "." . $extention;
-            // Сохраняем файл
-            $data['icon'] = $request->file('icon')->storeAs('public', $fileNameToStore);
-        }
+  
+        if ($request->hasFile('icon')):
+            $data['icon'] = $this->loadFile($request,$data);
+            endif; 
+
+
         $game_type->update($data);
+
         return redirect()->route('admin.game_types.index')->with('status', 'item-updated');
     }
     
@@ -99,5 +88,20 @@ class GameTypeController extends Controller
             ->paginate(10);
         endif;
         return view('admin.game_types.index', compact('game_types','user'));
+    }
+    protected function loadFile(Request $request,$data)
+    {
+        // Имя и расширение файла
+        $filenameWithExt = $request->file('icon')->getClientOriginalName();
+        // Только оригинальное имя файла
+        $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+        $filename = str_replace(' ', '_', $filename);
+        // Расширение
+        $extention = $request->file('icon')->getClientOriginalExtension();
+        // Путь для сохранения
+        $fileNameToStore = "icon/" . $filename . "_" . time() . "." . $extention;
+        // Сохраняем файл
+        $data = $request->file('icon')->storeAs('public', $fileNameToStore);
+        return $data;
     }
 }

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('bonus_cards', function (Blueprint $table) {
             $table->id();
-            $table->string('free_spins')->nullable();
+            $table->integer('max_cash_out');
             $table->string('title');
             $table->text('description')->nullable();
             $table->string('slug');
@@ -26,10 +26,8 @@ return new class extends Migration
             $table->integer('used_link')->default(0);
 
             $table->foreignId('category_id');
-            $table->foreignId('country_id');
             $table->foreignId('casino_id');
             $table->foreignId('bonus_type_id');
-            $table->foreignId('game_id');
             
             $table->timestamps();
         });

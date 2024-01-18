@@ -35,21 +35,12 @@ class GameController extends Controller
     public function store(StoreRequest $request)
     {
         $data = $request->validated();
-          // Если есть файл
-          if ($request->hasFile('image')) {
-            // Имя и расширение файла
-            $filenameWithExt = $request->file('image')->getClientOriginalName();
-            // Только оригинальное имя файла
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            $filename = str_replace(' ', '_', $filename);
-            // Расширение
-            $extention = $request->file('image')->getClientOriginalExtension();
-            // Путь для сохранения
-            $fileNameToStore = "image/" . $filename . "_" . time() . "." . $extention;
-            // Сохраняем файл
-            $data['image'] = $request->file('image')->storeAs('public', $fileNameToStore);
-        }
+
+        if ($request->hasFile('image')):
+            $data['image'] = $this->loadFile($request,$data);
+            endif;  
         Game::firstOrCreate($data);
+        
         return redirect()->route('admin.games.index')->with('status', 'item-created');
     }
     public function edit($game_slug)
@@ -62,21 +53,15 @@ class GameController extends Controller
     public function update(UpdateRequest $request, $game_slug)
     {
         $game = Game::whereSlug($game_slug)->firstOrFail();
+
         $data = $request->validated();
-        if ($request->hasFile('image')) {
-            // Имя и расширение файла
-            $filenameWithExt = $request->file('image')->getClientOriginalName();
-            // Только оригинальное имя файла
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            $filename = str_replace(' ', '_', $filename);
-            // Расширение
-            $extention = $request->file('image')->getClientOriginalExtension();
-            // Путь для сохранения
-            $fileNameToStore = "image/" . $filename . "_" . time() . "." . $extention;
-            // Сохраняем файл
-            $data['image'] = $request->file('image')->storeAs('public', $fileNameToStore);
-        }
+
+        if ($request->hasFile('image')):
+            $data['image'] = $this->loadFile($request,$data);
+            endif; 
+
         $game->update($data);
+
         return redirect()->route('admin.games.index')->with('status', 'item-updated');
     }
     
@@ -100,5 +85,20 @@ class GameController extends Controller
             ->paginate(10);
         endif;
         return view('admin.games.index', compact('games','user'));
+    }
+    protected function loadFile(Request $request,$data)
+    {
+        // Имя и расширение файла
+        $filenameWithExt = $request->file('image')->getClientOriginalName();
+        // Только оригинальное имя файла
+        $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+        $filename = str_replace(' ', '_', $filename);
+        // Расширение
+        $extention = $request->file('image')->getClientOriginalExtension();
+        // Путь для сохранения
+        $fileNameToStore = "image/" . $filename . "_" . time() . "." . $extention;
+        // Сохраняем файл
+        $data = $request->file('image')->storeAs('public', $fileNameToStore);
+        return $data;
     }
 }

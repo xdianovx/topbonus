@@ -20,9 +20,9 @@ class Game extends Model
     {
         return 'slug';
     }
-    public function bonus_card()
+    public function bonus_cards()
     {
-        return $this->belongsTo(BonusCard::class);
+        return $this->belongsToMany(BonusCard::class);
         
     }
     public function game_type()

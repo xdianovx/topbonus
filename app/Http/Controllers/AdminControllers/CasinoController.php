@@ -50,57 +50,17 @@ class CasinoController extends Controller
     {
         $data = $request->validated();
 
-        if (isset($data['game_types'])) :
-            $game_typesIds = $data['game_types'];
-            unset($data['game_types']);
+        $split_data = $this->cutArraysFromRequest($data);
+        $data = $split_data['data'];
+        $data = $this->changeTitleToId($data);
+        if ($request->hasFile('logo')) :
+            $data['logo'] = $this->loadFile($request, $data);
         endif;
-        if (isset($data['countries'])) :
-            $countriesIds = $data['countries'];
-            unset($data['countries']);
-        endif;
-        if (isset($data['certificate_id'])) :
-            $certificate_id = CertificatesOrgs::where('title',$data['certificate_id'])->first()->id;
-            array_replace($data,[ $data['certificate_id'] = $certificate_id]);
-         endif;
-         if (isset($data['license_id'])) :
-            $license_id = LicensesOrgs::where('title',$data['license_id'])->first()->id;
-            array_replace($data, [$data['license_id'] = $license_id]);
-         endif;
-       
-        // Если есть файл
-        if ($request->hasFile('logo')) {
-            // Имя и расширение файла
-            $filenameWithExt = $request->file('logo')->getClientOriginalName();
-            // Только оригинальное имя файла
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            $filename = str_replace(' ', '_', $filename);
-            // Расширение
-            $extention = $request->file('logo')->getClientOriginalExtension();
-            // Путь для сохранения
-            $fileNameToStore = "logo/" . $filename . "_" . time() . "." . $extention;
-            // Сохраняем файл
-            $data['logo'] = $request->file('logo')->storeAs('public', $fileNameToStore);
-        }
 
         $casino = Casino::firstOrCreate($data);
-        if (isset($game_typesIds)) :
-            foreach ($game_typesIds as $key => $value) :
-                $game_types_id = DB::table('game_types')
-                    ->where('title', $value)
-                    ->first()->id;
-                $game_typesIds[$key] = $game_types_id;
-            endforeach;
-            $casino->game_types()->attach($game_typesIds);
-        endif;
-        if (isset($countriesIds)) :
-            foreach ($countriesIds as $key => $value) :
-                $countries_id = DB::table('countries')
-                    ->where('title', $value)
-                    ->first()->id;
-                $countriesIds[$key] = $countries_id;
-            endforeach;
-            $casino->countries()->attach($countriesIds);
-        endif;
+
+        $this->writeDataToTable($casino, $split_data['game_typesIds'], $split_data['countriesIds']);
+
         return redirect()->route('admin.casinos.index')->with('status', 'item-created');
     }
     public function edit($casino_slug)
@@ -124,54 +84,17 @@ class CasinoController extends Controller
     {
         $casino = Casino::whereSlug($casino_slug)->firstOrFail();
         $data = $request->validated();
-        if (isset($data['game_types'])) :
-            $game_typesIds = $data['game_types'];
-            unset($data['game_types']);
+
+        $split_data = $this->cutArraysFromRequest($data);
+        $data = $split_data['data'];
+        $data = $this->changeTitleToId($data);
+        if ($request->hasFile('logo')) :
+            $data['logo'] = $this->loadFile($request, $data);
         endif;
-        if (isset($data['countries'])) :
-            $countriesIds = $data['countries'];
-            unset($data['countries']);
-        endif;
-        if (isset($data['certificate_id'])) :
-            $certificate_id = CertificatesOrgs::where('title',$data['certificate_id'])->first()->id;
-            array_replace($data,[ $data['certificate_id'] = $certificate_id]);
-         endif;
-         if (isset($data['license_id'])) :
-            $license_id = LicensesOrgs::where('title',$data['license_id'])->first()->id;
-            array_replace($data, [$data['license_id'] = $license_id]);
-         endif;
-        if ($request->hasFile('logo')) {
-            // Имя и расширение файла
-            $filenameWithExt = $request->file('logo')->getClientOriginalName();
-            // Только оригинальное имя файла
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            $filename = str_replace(' ', '_', $filename);
-            // Расширение
-            $extention = $request->file('logo')->getClientOriginalExtension();
-            // Путь для сохранения
-            $fileNameToStore = "logo/" . $filename . "_" . time() . "." . $extention;
-            // Сохраняем файл
-            $data['logo'] = $request->file('logo')->storeAs('public', $fileNameToStore);
-        }
         $casino->update($data);
-        if (isset($game_typesIds)) :
-            foreach ($game_typesIds as $key => $value) :
-                $game_types_id = DB::table('game_types')
-                    ->where('title', $value)
-                    ->first()->id;
-                $game_typesIds[$key] = $game_types_id;
-            endforeach;
-            $casino->game_types()->sync($game_typesIds);
-        endif;
-        if (isset($countriesIds)) :
-            foreach ($countriesIds as $key => $value) :
-                $countries_id = DB::table('countries')
-                    ->where('title', $value)
-                    ->first()->id;
-                $countriesIds[$key] = $countries_id;
-            endforeach;
-            $casino->countries()->sync($countriesIds);
-        endif;
+
+        $this->writeDataToTable($casino, $split_data['game_typesIds'], $split_data['countriesIds']);
+
         return redirect()->route('admin.casinos.index')->with('status', 'item-updated');
     }
 
@@ -195,5 +118,68 @@ class CasinoController extends Controller
                 ->paginate(10);
         endif;
         return view('admin.casino.index', compact('casinos', 'user'));
+    }
+    protected function cutArraysFromRequest($data)
+    {
+        if (isset($data['game_types'])) :
+            $game_typesIds = $data['game_types'];
+            unset($data['game_types']);
+        endif;
+        if (isset($data['countries'])) :
+            $countriesIds = $data['countries'];
+            unset($data['countries']);
+        endif;
+        return [
+            'data' => $data,
+            'game_typesIds' => $game_typesIds,
+            'countriesIds' => $countriesIds
+        ];
+    }
+    protected function changeTitleToId($data)
+    {
+        if (isset($data['certificate_id'])) :
+            $data['certificate_id'] = CertificatesOrgs::where('title', $data['certificate_id'])->first()->id;
+        endif;
+        if (isset($data['license_id'])) :
+            $data['license_id'] = LicensesOrgs::where('title', $data['license_id'])->first()->id;
+        endif;
+        return $data;
+    }
+    protected function loadFile(Request $request, $data)
+    {
+
+        // Имя и расширение файла
+        $filenameWithExt = $request->file('logo')->getClientOriginalName();
+        // Только оригинальное имя файла
+        $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+        $filename = str_replace(' ', '_', $filename);
+        // Расширение
+        $extention = $request->file('logo')->getClientOriginalExtension();
+        // Путь для сохранения
+        $fileNameToStore = "logo/" . $filename . "_" . time() . "." . $extention;
+        // Сохраняем файл
+        $data = $request->file('logo')->storeAs('public', $fileNameToStore);
+        return $data;
+    }
+    protected function writeDataToTable($item, $game_typesIds, $countriesIds)
+    {
+        if (isset($game_typesIds)) :
+            foreach ($game_typesIds as $key => $value) :
+                $game_types_id = DB::table('game_types')
+                    ->where('title', $value)
+                    ->first()->id;
+                $game_typesIds[$key] = $game_types_id;
+            endforeach;
+            $item->game_types()->sync($game_typesIds);
+        endif;
+        if (isset($countriesIds)) :
+            foreach ($countriesIds as $key => $value) :
+                $countries_id = DB::table('countries')
+                    ->where('title', $value)
+                    ->first()->id;
+                $countriesIds[$key] = $countries_id;
+            endforeach;
+            $item->countries()->sync($countriesIds);
+        endif;
     }
 }

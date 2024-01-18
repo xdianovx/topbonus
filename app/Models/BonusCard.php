@@ -9,7 +9,7 @@ class BonusCard extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'free_spins',
+        'max_cash_out',
         'title',
         'description',
         'slug',
@@ -20,6 +20,9 @@ class BonusCard extends Model
         'like',
         'dislike',
         'used_link',
+        'category_id',
+        'casino_id',
+        'bonus_type_id'
     ];
     public static $bonus_cards_routes = [
         'admin.bonus_cards.index',
@@ -47,21 +50,17 @@ class BonusCard extends Model
         return $this->belongsTo(BonusType::class);
         
     }
-
-    public function country()
+    //belongsToMany
+    public function games()
+    {
+      return $this->belongsToMany(Game::class);
+    }
+    public function countries()
     {
       return $this->belongsToMany(Country::class);
     }
-    public function rating()
+    public function game_types()
     {
-      return $this->hasMany(CasinoRating::class);
-    }
-    public function seo_meta()
-    {
-        return $this->morphOne(SeoMeta::class, 'seo_metaable');
-    }
-    public function games_allowed()
-    {
-      return $this->hasMany(Game::class);
+      return $this->belongsToMany(GameType::class);
     }
 }

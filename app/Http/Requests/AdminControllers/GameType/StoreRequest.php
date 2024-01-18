@@ -24,7 +24,7 @@ class StoreRequest extends FormRequest
         return [
             'title' => ['required', 'max:70'],
             'slug' => ['required', 'max:70'],
-            'icon' => 'required|image',
+            'icon' => 'nullable|image',
             'description'  => ['nullable'],
             'description_footer' => ['nullable']
         ];

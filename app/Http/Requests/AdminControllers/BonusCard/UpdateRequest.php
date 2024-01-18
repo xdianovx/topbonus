@@ -22,14 +22,23 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'free_spins' => ['nullable'],
             'title' => ['required', 'max:70'],
             'slug' => ['required', 'max:70'],
             'description'  => ['nullable'],
             'bonus_code' => ['required'],
             'wagering' => ['required'],
             'refferal_link' => ['required'],
-            'expired_date' => ['required']  
+            'expired_date' => ['required','date'],
+            'max_cash_out' => ['required','integer','max:999999999'],
+            'category_id' => 'required|string',
+            'casino_id' => 'required|string',
+            'bonus_type_id' => 'required|string',
+            'countries' => 'nullable|array',
+            'countries.*' => 'nullable|string|exists:countries,title',
+            'game_types' => 'nullable|array',
+            'game_types.*' => 'nullable|string|exists:game_types,title',
+            'games' => 'nullable|array',
+            'games.*' => 'nullable|string|exists:games,title',
         ];
     }
 }

@@ -40,21 +40,11 @@ class CertificatesOrgsController extends Controller
     {
         
         $data = $request->validated();
-        // dd($data);
-          // Если есть файл
-          if ($request->hasFile('logo')) {
-            // Имя и расширение файла
-            $filenameWithExt = $request->file('logo')->getClientOriginalName();
-            // Только оригинальное имя файла
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            $filename = str_replace(' ', '_', $filename);
-            // Расширение
-            $extention = $request->file('logo')->getClientOriginalExtension();
-            // Путь для сохранения
-            $fileNameToStore = "logo/" . $filename . "_" . time() . "." . $extention;
-            // Сохраняем файл
-            $data['logo'] = $request->file('logo')->storeAs('public', $fileNameToStore);
-        }
+        
+        if ($request->hasFile('logo')):
+            $data['logo'] = $this->loadFile($request,$data);
+            endif;  
+
         CertificatesOrgs::firstOrCreate($data);
         return redirect()->route('admin.certificates.index')->with('status', 'item-created');
     }
@@ -69,19 +59,10 @@ class CertificatesOrgsController extends Controller
     {
         $item = CertificatesOrgs::whereId($certificat->id)->firstOrFail();
         $data = $request->validated();
-        if ($request->hasFile('logo')) {
-            // Имя и расширение файла
-            $filenameWithExt = $request->file('logo')->getClientOriginalName();
-            // Только оригинальное имя файла
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            $filename = str_replace(' ', '_', $filename);
-            // Расширение
-            $extention = $request->file('logo')->getClientOriginalExtension();
-            // Путь для сохранения
-            $fileNameToStore = "logo/" . $filename . "_" . time() . "." . $extention;
-            // Сохраняем файл
-            $data['logo'] = $request->file('logo')->storeAs('public', $fileNameToStore);
-        }
+
+        if ($request->hasFile('logo')):
+            $data['logo'] = $this->loadFile($request,$data);
+            endif;  
         $certificat->update($data);
         return redirect()->route('admin.certificates.index')->with('status', 'item-updated');
     }
@@ -106,5 +87,20 @@ class CertificatesOrgsController extends Controller
             ->paginate(10);
         endif;
         return view('admin.certificates.index', compact('certificates','user'));
+    }
+    protected function loadFile(Request $request,$data)
+    {
+        // Имя и расширение файла
+        $filenameWithExt = $request->file('logo')->getClientOriginalName();
+        // Только оригинальное имя файла
+        $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+        $filename = str_replace(' ', '_', $filename);
+        // Расширение
+        $extention = $request->file('logo')->getClientOriginalExtension();
+        // Путь для сохранения
+        $fileNameToStore = "logo/" . $filename . "_" . time() . "." . $extention;
+        // Сохраняем файл
+        $data = $request->file('logo')->storeAs('public', $fileNameToStore);
+        return $data;
     }
 }

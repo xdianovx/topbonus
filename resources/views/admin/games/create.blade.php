@@ -59,17 +59,19 @@
                                             <div class="col-xxl-6 col-md-6">
                                                 <label for="valueInput" class="form-label">Game Type *</label>
                                                 @if (!count($game_types) == 0)
-                                                <select type="text" data-choices class="form-control" name="game_type_id" id="valueInput">
-                                                    @foreach ($game_types as $item)
-                                                    <option value="{{ $item->id }}"
-                                                        {{ $item->id == old('game_type_id') ? 'selected' : '' }}>
-                                                        {{ $item->title }}
-                                                    </option>
-                                                @endforeach
-                                                </select>
+                                                    <select type="text" data-choices class="form-control"
+                                                        name="game_type_id" id="valueInput">
+                                                        @foreach ($game_types as $item)
+                                                            <option value="{{ $item->id }}"
+                                                                {{ $item->id == old('game_type_id') ? 'selected' : '' }}>
+                                                                {{ $item->title }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
                                                 @else
-                                                <div class="text-danger">No entries exist, create an entry in the Game Type table
-                                                </div>
+                                                    <div class="text-danger">No entries exist, create an entry in the Game
+                                                        Type table
+                                                    </div>
                                                 @endif
                                             </div>
                                             <div class="col-xxl-6 col-md-6">

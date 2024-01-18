@@ -35,24 +35,11 @@ class SoftController extends Controller
     public function store(StoreRequest $request)
     {
         $data = $request->validated();
-        if (isset($data['casino_id'])) :
-            $casino_id = Casino::where('title',$data['casino_id'])->first()->id;
-            array_replace($data, [$data['casino_id'] = $casino_id]);
-         endif;
-          // Если есть файл
-          if ($request->hasFile('image')) {
-            // Имя и расширение файла
-            $filenameWithExt = $request->file('image')->getClientOriginalName();
-            // Только оригинальное имя файла
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            $filename = str_replace(' ', '_', $filename);
-            // Расширение
-            $extention = $request->file('image')->getClientOriginalExtension();
-            // Путь для сохранения
-            $fileNameToStore = "image/" . $filename . "_" . time() . "." . $extention;
-            // Сохраняем файл
-            $data['image'] = $request->file('image')->storeAs('public', $fileNameToStore);
-        }
+        $data = $this->changeTitleToId($data);
+
+        if ($request->hasFile('logo')):
+            $data['logo'] = $this->loadFile($request,$data);
+            endif;  
         Soft::firstOrCreate($data);
         return redirect()->route('admin.softs.index')->with('status', 'item-created');
     }
@@ -67,23 +54,12 @@ class SoftController extends Controller
     {
         $soft = Soft::whereSlug($soft_slug)->firstOrFail();
         $data = $request->validated();
-        if (isset($data['casino_id'])) :
-            $casino_id = Casino::where('title',$data['casino_id'])->first()->id;
-            array_replace($data, [$data['casino_id'] = $casino_id]);
-         endif;
-        if ($request->hasFile('logo')) {
-            // Имя и расширение файла
-            $filenameWithExt = $request->file('logo')->getClientOriginalName();
-            // Только оригинальное имя файла
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            $filename = str_replace(' ', '_', $filename);
-            // Расширение
-            $extention = $request->file('logo')->getClientOriginalExtension();
-            // Путь для сохранения
-            $fileNameToStore = "logo/" . $filename . "_" . time() . "." . $extention;
-            // Сохраняем файл
-            $data['logo'] = $request->file('logo')->storeAs('public', $fileNameToStore);
-        }
+
+        $data = $this->changeTitleToId($data);
+
+        if ($request->hasFile('logo')):
+            $data['logo'] = $this->loadFile($request,$data);
+            endif;  
         $soft->update($data);
         return redirect()->route('admin.softs.index')->with('status', 'item-updated');
     }
@@ -108,5 +84,29 @@ class SoftController extends Controller
             ->paginate(10);
         endif;
         return view('admin.softs.index', compact('softs','user'));
+    }
+    protected function changeTitleToId($data)
+    {
+        if (isset($data['casino_id'])) :
+            $casino_id = Casino::where('title',$data['casino_id'])->first()->id;
+            array_replace($data, [$data['casino_id'] = $casino_id]);
+         endif;
+         return $data;
+    }
+    protected function loadFile(Request $request,$data)
+    {
+        // Имя и расширение файла
+        $filenameWithExt = $request->file('logo')->getClientOriginalName();
+        // Только оригинальное имя файла
+        $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+        $filename = str_replace(' ', '_', $filename);
+        // Расширение
+        $extention = $request->file('logo')->getClientOriginalExtension();
+        // Путь для сохранения
+        $fileNameToStore = "logo/" . $filename . "_" . time() . "." . $extention;
+        // Сохраняем файл
+        $data = $request->file('logo')->storeAs('public', $fileNameToStore);
+        return $data;
+    
     }
 }
