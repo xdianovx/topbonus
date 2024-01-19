@@ -1,9 +1,6 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="main-content">
-        <div class="page-content">
-            <div class="container-fluid">
 
                 <div class="row">
                     <div class="col-lg-12">
@@ -66,7 +63,7 @@
                                          
                                             <div class="mb-3">
                                                 <label class="form-label" for="basic-default-message">Description</label>
-                                                <textarea id="basic-default-message" class="form-control" name="description" placeholder="Text" style="height: 234px;">{{ old('description') }}</textarea>
+                                                <textarea id="basic-default-message" class="form-control ckeditor-classic" name="description" placeholder="Text" style="height: 234px;">{{ old('description') }}</textarea>
                                             </div>
                                         </div>
                                         <button type="submit"
@@ -79,7 +76,5 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
+   
 @endsection

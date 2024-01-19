@@ -14,6 +14,7 @@ class GameController extends Controller
 {
     public function index()
     {
+        
         $user = Auth::user();
         $games = Game::orderBy('id', 'DESC')->paginate(10);
         return view('admin.games.index', compact('games','user'));
@@ -35,7 +36,7 @@ class GameController extends Controller
     public function store(StoreRequest $request)
     {
         $data = $request->validated();
-
+        $data = $this->changeTitleToId($data);
         if ($request->hasFile('image')):
             $data['image'] = $this->loadFile($request,$data);
             endif;  
@@ -55,7 +56,7 @@ class GameController extends Controller
         $game = Game::whereSlug($game_slug)->firstOrFail();
 
         $data = $request->validated();
-
+        $data = $this->changeTitleToId($data);
         if ($request->hasFile('image')):
             $data['image'] = $this->loadFile($request,$data);
             endif; 
@@ -85,6 +86,13 @@ class GameController extends Controller
             ->paginate(10);
         endif;
         return view('admin.games.index', compact('games','user'));
+    }
+    protected function changeTitleToId($data)
+    {
+        if (isset($data['game_type_id'])) :
+            $data['game_type_id'] = GameType::where('title', $data['game_type_id'])->first()->id;
+        endif;
+        return $data;
     }
     protected function loadFile(Request $request,$data)
     {

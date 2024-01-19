@@ -19,6 +19,7 @@
     <link href="{{ URL::asset('assets/admin/libs/quill/quill.bubble.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ URL::asset('assets/admin/libs/quill/quill.snow.css') }}" rel="stylesheet" type="text/css" />
 
+
 </head>
 
 <body>
@@ -56,18 +57,37 @@
         </div>
 
         @include('admin.parts.aside')
+        <div class="main-content">
+            <div class="page-content">
+                <div class="container-fluid">
 
-        <div class="vertical-overlay"></div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                <h4 class="mb-sm-0">{{preg_replace('#admin/|_|-#', ' ', Request::path())}}</h4>
+                                <div class="page-title-right">
+                                    <ol class="breadcrumb m-0">
+                                        <li class="breadcrumb-item"></li>
+                                        <li class="breadcrumb-item active">Starter</li>
+                                    </ol>
+                                </div>
 
-        <!-- ============================================================== -->
-        <!-- Start right Content here -->
-        <!-- ============================================================== -->
-        @yield('content')
+                            </div>
+                        </div>
+                    </div>
 
+                    <!-- ============================================================== -->
+                    <!-- Start right Content here -->
+                    <!-- ============================================================== -->
+                    @yield('content')
+                </div>
+            </div>
+        </div>
     </div>
     <!-- END layout-wrapper -->
 
     <!-- JAVASCRIPT -->
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
     <script src="{{ asset('assets/admin/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/admin/libs/simplebar/simplebar.min.js') }}"></script>
     <script src="{{ asset('assets/admin/libs/node-waves/waves.min.js') }}"></script>
@@ -85,6 +105,7 @@
     <script src="{{ URL::asset('assets/admin/libs/particles.js/particles.js') }}"></script>
     <script src="{{ URL::asset('assets/admin/js/plugins.js') }}"></script>
     <script src="{{ URL::asset('assets/admin/js/app.js') }}"></script>
+
 
 </body>
 
